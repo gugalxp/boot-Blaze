@@ -15,8 +15,9 @@ import { Telegraf } from "telegraf";
             let casaAnterior = 2; 
             let indiceAnterior = tamanho - casaAnterior;
             let rollAnterior = resultados[indiceAnterior].roll;
-          
-            return telegram(roll);
+            let cor = resultados[indice].color;
+
+            return telegram(roll, rollAnterior, cor);
 
         })
         .catch((err) => {
@@ -32,10 +33,16 @@ import { Telegraf } from "telegraf";
     // }
 
 
-    function telegram(rolle) {
+    function telegram(rollAnterior, cor) {
+        let roll = 13;
+
+        console.log("local Atual", roll)
+        console.log("local Anterior", rollAnterior)
+        console.log("COR", cor)
+
+        const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
 
         let hora = new Date().getHours();
-        let seconds = new Date().getSeconds();
         let minutesRegraOnze = new Date().getMinutes() + 6;
         let minutesRegraOito = new Date().getMinutes() + 3;
         let minutesRegraNove = new Date().getMinutes() + 4;
@@ -49,17 +56,204 @@ import { Telegraf } from "telegraf";
         let horaCompletaRegraDez = hora + ':' + minutesRegraDez;
         let horaCompletaRegraDoze = hora + ':' + minutesRegraDoze;
         let horaCompletaRegraTreze = hora + ':' + minutesRegraTreze;
-        let roll = 11;
-        if (roll === 11) {
 
-            const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
+        //GALE
+        
+        let minutesRegraOnzeGale1 = new Date().getMinutes() + 12;
+        let minutesRegraOitoGale1 = new Date().getMinutes() + 6;
+        let minutesRegraNoveGale1 = new Date().getMinutes() + 8;
+        let minutesRegraDezGale1 = new Date().getMinutes() + 10;
+        let minutesRegraDozeGale1 = new Date().getMinutes() + 14;
+        let minutesRegraTrezeGale1 = new Date().getMinutes() + 16;
+
+        let horaCompletaRegraOnzeGale1 = hora + ':' + minutesRegraOnzeGale1;
+        let horaCompletaRegraOitoGale1 = hora + ':' + minutesRegraOitoGale1;
+        let horaCompletaRegraNoveGale1 = hora + ':' + minutesRegraNoveGale1;
+        let horaCompletaRegraDezGale1 = hora + ':' + minutesRegraDezGale1;
+        let horaCompletaRegraDozeGale1 = hora + ':' + minutesRegraDozeGale1;
+        let horaCompletaRegraTrezeGale1 = hora + ':' + minutesRegraTrezeGale1;
+
+        switch (cor) {
+            case 1 : 
+                        cor = "Vermelho"
+                break;
+            case 2 : 
+                        cor = "Preto"
+                break;
+            case 0 : 
+                        cor = "Branco"
+                break;
+            }   
+
+        //TREEEEEEZE 13
+
+        if (roll === 13 && rollAnterior != 13) {
+            console.log("PALPITE DE SINAL")        
+            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraTreze} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+            
+            setTimeout(() => {
+                if (cor === "Vermelho") {
+                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                } else if (cor !== "Vermelho") {
+                    bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraTrezeGale1} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                    setTimeout(() => {
+                        if (cor === "Vermelho") {
+                            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                        } else if (cor !== "Vermelho") {
+                            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraTreze} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                            setTimeout(() => {
+                                if (cor === "Vermelho") {
+                                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                                } else {
+                                    bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                                }
+                            }, 10000);
+                        }
+                    }, 10000);
+                }
+            }, 10000); //480000
+        }
+
+        //DOZZZZZZZE 12
+
+        if (roll === 12 && rollAnterior != 12) {
+            console.log("PALPITE DE SINAL")        
+            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraDoze} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+            
+            setTimeout(() => {
+                if (cor === "Preto") {
+                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                } else if (cor !== "Preto") {
+                    bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraDozeGale1} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                    setTimeout(() => {
+                        if (cor === "Preto") {
+                            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                        } else if (cor !== "Preto") {
+                            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraDoze} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                            setTimeout(() => {
+                                if (cor === "Preto") {
+                                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                                } else {
+                                    bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                                }
+                            }, 420000);
+                        }
+                    }, 420000);
+                }
+            }, 420000);
+        }
+        
+        //DEZZZZZZZ 10
+        
+        if (roll === 10 && rollAnterior != 10) {
+            console.log("PALPITE DE SINAL")        
+            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraDez} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+            
+            setTimeout(() => {
+                if (cor === "Vermelho") {
+                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                } else if (cor !== "Vermelho") {
+                    bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraDezGale1} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                    setTimeout(() => {
+                        if (cor === "Vermelho") {
+                            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                        } else if (cor !== "Vermelho") {
+                            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraDez} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                            setTimeout(() => {
+                                if (cor === "Vermelho") {
+                                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                                } else {
+                                    bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                                }
+                            }, 300000);
+                        }
+                    }, 300000);
+                }
+            }, 300000);
+        }
+
+        //NOVEEEEEEEEEEEE 9
+        
+        if (roll === 9 && rollAnterior != 9) {
+            console.log("PALPITE DE SINAL")        
+            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraNove} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+      
+        setTimeout(() => {
+            if (cor === "Vermelho") {
+                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+            } else if (cor !== "Vermelho") {
+                bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraNoveGale1} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                setTimeout(() => {
+                    if (cor === "Vermelho") {
+                        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                    } else if (cor !== "Vermelho") {
+                        bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraNove} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                        setTimeout(() => {
+                            if (cor === "Vermelho") {
+                                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                            } else {
+                                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                            }
+                        }, 240000);
+                    }
+                }, 240000);
+            }
+        }, 240000);
+    }
+    
+        //OIIIIIIIIIITO 8
+        
+        if (roll === 8 && rollAnterior != 8) {
+            console.log("PALPITE DE SINAL")        
+            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraOito} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+      
+        setTimeout(() => {
+            if (cor === "Preto") {
+                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+            } else if (cor !== "Preto") {
+                bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraOitoGale1} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                setTimeout(() => {
+                    if (cor === "Preto") {
+                        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                    } else if (cor !== "Preto") {
+                        bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraOito} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                        setTimeout(() => {
+                            if (cor === "Preto") {
+                                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                            } else {
+                                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                            }
+                        }, 180000);
+                    }
+                }, 180000);
+            }
+        }, 180000);
+    }
+
+        // ONZEEEEEEEEEEE 11
+        if (roll === 11 && rollAnterior != 11) {
                 console.log("PALPITE DE SINAL")        
                 bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraOnze} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
           
             setTimeout(() => {
-                if (roll === 11) {
-                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR TESTE");
-                    startRobo();
+                if (cor === "Preto") {
+                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                } else if (cor !== "Preto") {
+                    bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraOnzeGale1} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                    setTimeout(() => {
+                        if (cor === "Preto") {
+                            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                        } else if (cor !== "Preto") {
+                            bot.telegram.sendMessage(-1001677942242, `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${horaCompletaRegraOnze} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`, { parse_mode: 'HTML'});
+                            setTimeout(() => {
+                                if (cor === "Preto") {
+                                    bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                                } else {
+                                    bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                                }
+                            }, 360000);
+                        }
+                    }, 360000);
                 }
             }, 360000);
         }
