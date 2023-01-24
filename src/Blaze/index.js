@@ -2,6 +2,8 @@ import axios from "axios";
 import { Telegraf } from "telegraf";
 
 let resultados;
+const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
+
 
 function startRobo() {
   axios
@@ -44,28 +46,6 @@ function startRobo() {
       console.error(err);
     });
 }
-
-function zeroFill(n) {
-  return n < 9 ? `0${n}` : `${n}`;
-}
-
-function formatDate(date) {
-  // const d = zeroFill(date.getDate());
-  // const mo = zeroFill(date.getMonth() + 1);
-  // const y = zeroFill(date.getFullYear());
-  const h = zeroFill(date.getHours());
-  const mi = zeroFill(date.getMinutes());
-  // const s = zeroFill(date.getSeconds());
-
-  return `${h}:${mi}`;
-}
-
-function telegram(roll, rollAnterior, cor) {
-  console.log("local Atual", roll);
-  console.log("local Anterior", rollAnterior);
-  console.log("COR", cor);
-
-  const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
 
   //ONZE
   const dataOnze = new Date();
@@ -163,6 +143,26 @@ function telegram(roll, rollAnterior, cor) {
   dataTrezeG2.setMinutes(dataTrezeG2.getMinutes() + 24);
   dataTrezeG2.setHours(dataTrezeG2.getHours() + 0);
 
+function zeroFill(n) {
+  return n < 9 ? `0${n}` : `${n}`;
+}
+
+function formatDate(date) {
+  // const d = zeroFill(date.getDate());
+  // const mo = zeroFill(date.getMonth() + 1);
+  // const y = zeroFill(date.getFullYear());
+  const h = zeroFill(date.getHours());
+  const mi = zeroFill(date.getMinutes());
+  // const s = zeroFill(date.getSeconds());
+
+  return `${h}:${mi}`;
+}
+
+function telegram(roll, rollAnterior, cor) {
+  console.log("local Atual", roll);
+  console.log("local Anterior", rollAnterior);
+  console.log("COR", cor);
+
   switch (cor) {
     case 1:
       cor = "Vermelho";
@@ -175,99 +175,145 @@ function telegram(roll, rollAnterior, cor) {
       break;
   }
 
-    // 0
+  // 0
 
-    if (roll === 0) {
-      setTimeout(() => {
-        startRobo();
-        console.log("1")
-      }, 20000); 
-    }
-    
-    // 1
+  if (roll === 0) {
+    setTimeout(() => {
+      startRobo();
+      console.log("1")
+    }, 20000); 
+  }
+  
+  // 1
 
-    if (roll === 1) {
-      setTimeout(() => {
-        startRobo();
-        console.log("1")
-      }, 20000); 
-    }
+  if (roll === 1) {
+    setTimeout(() => {
+      startRobo();
+      console.log("1")
+    }, 20000); 
+  }
 
-    // 2
+  // 2
 
-    if (roll === 2) {
-      setTimeout(() => {
-        startRobo();
-        console.log("2")
-      }, 20000); 
-    }
+  if (roll === 2) {
+    setTimeout(() => {
+      startRobo();
+      console.log("2")
+    }, 20000); 
+  }
 
-    // 3
+  // 3
 
-    if (roll === 3) {
-      setTimeout(() => {
-        startRobo();
-        console.log("3")
-      }, 20000); 
-    }
+  if (roll === 3) {
+    setTimeout(() => {
+      startRobo();
+      console.log("3")
+    }, 20000); 
+  }
 
-    // 4
+  // 4
 
-    if (roll === 4) {
-      setTimeout(() => {
-        startRobo();
-        console.log("4")
-      }, 20000); 
-    }
+  if (roll === 4) {
+    setTimeout(() => {
+      startRobo();
+      console.log("4")
+    }, 20000); 
+  }
 
-    // 5
+  // 5
 
-    if (roll === 5) {
-      setTimeout(() => {
-        startRobo();
-        console.log("5")
-      }, 20000); 
-    }
+  if (roll === 5) {
+    setTimeout(() => {
+      startRobo();
+      console.log("5")
+    }, 20000); 
+  }
 
-    // 6
+  // 6
 
-    if (roll === 6) {
-      setTimeout(() => {
-        startRobo();
-        console.log("6")
-      }, 20000); 
-    }
+  if (roll === 6) {
+    setTimeout(() => {
+      startRobo();
+      console.log("6")
+    }, 20000); 
+  }
 
-    // 7
+  // 7
 
-    if (roll === 7) {
-      setTimeout(() => {
-        startRobo();
-        console.log("7")
-      }, 20000); 
-    }
+  if (roll === 7) {
+    setTimeout(() => {
+      startRobo();
+      console.log("7")
+    }, 20000); 
+  }
 
-    // 8
+  // 8
 
-    if (roll === 8) {
-      setTimeout(() => {
-        startRobo();
-        console.log("8")
-      }, 20000); 
-    }
+  if (roll === 8) {
+    setTimeout(() => {
+      startRobo();
+      console.log("8")
+    }, 20000); 
+  }
 
-    // 14
+  // 14
 
-    if (roll === 14) {
-      setTimeout(() => {
-        startRobo();
-        console.log("14")
-      }, 20000); 
-    }
-   
-  //     //TREEEEEEZE 13
+  if (roll === 14) {
+    setTimeout(() => {
+      startRobo();
+      console.log("14")
+    }, 20000); 
+  }
+  
+  //TREZE
 
   if (roll === 13 && rollAnterior != 13) {
+    processar_Treze(cor, roll, rollAnterior);
+  }
+
+  //DOZE
+
+  if (roll === 12 && rollAnterior != 12) {
+    processar_Doze(cor, roll, rollAnterior);
+  }
+
+  //DEZ
+
+  if (roll === 10 && rollAnterior != 10) {
+    processar_Dez(cor, roll, rollAnterior);
+  }
+
+  //NOVE
+  if (roll === 9 && rollAnterior != 9) {
+    processar_Nove(cor, roll, rollAnterior);
+  }
+
+  //SEIS
+
+  if (roll === 6 && rollAnterior != 6) {
+    processar_Seis(cor, roll, rollAnterior);
+  }
+
+  //OITO
+  
+  if (roll === 8 && rollAnterior != 8) {
+    processar_Oito(cor, roll, rollAnterior);
+  }
+
+  //ONZE
+  
+  if (roll === 11 && rollAnterior != 11) {
+    processar_Onze(cor, roll, rollAnterior);
+  }
+
+}
+
+startRobo();
+ 
+function processar_Treze(cor, roll, rollAnterior) {
+  //     //TREEEEEEZE 13
+  if (roll === 13 && rollAnterior != 13) {
+
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
       -1001677942242,
@@ -284,24 +330,22 @@ function telegram(roll, rollAnterior, cor) {
       } else if (cor !== "Vermelho") {
         bot.telegram.sendMessage(
           -1001677942242,
-          `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(
+          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(
             dataTrezeG1
           )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-          { parse_mode: "HTML" }
+          { parse_mode: "HTML" }  
         );
-        setTimeout(() => {
           if (cor === "Vermelho") {
             bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
             startRobo();
           } else if (cor !== "Vermelho") {
             bot.telegram.sendMessage(
               -1001677942242,
-              `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(
+              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(
                 dataTrezeG2
               )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
               { parse_mode: "HTML" }
             );
-            setTimeout(() => {
               if (cor === "Vermelho") {
                 bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
                 startRobo();
@@ -309,16 +353,20 @@ function telegram(roll, rollAnterior, cor) {
                 bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
                 startRobo();
               }
-            }, 480000);
           }
-        }, 480000);
       }
     }, 480000); //
+  }  else {
+      setTimeout(() => {
+        startRobo();
+      }, 20000);
   }
+}
 
+function processar_Doze(cor, roll, rollAnterior) {
   //     //DOZZZZZZZE 12
-
   if (roll === 12 && rollAnterior != 12) {
+
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
       -1001677942242,
@@ -333,7 +381,7 @@ function telegram(roll, rollAnterior, cor) {
       } else if (cor !== "Preto") {
         bot.telegram.sendMessage(
           -1001677942242,
-          `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDozeG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDozeG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
@@ -343,7 +391,7 @@ function telegram(roll, rollAnterior, cor) {
           } else if (cor !== "Preto") {
             bot.telegram.sendMessage(
               -1001677942242,
-              `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDozeG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDozeG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
@@ -359,8 +407,14 @@ function telegram(roll, rollAnterior, cor) {
         }, 420000);
       }
     }, 420000);
-  }
+  } else {
+      setTimeout(() => {
+        startRobo();
+      }, 20000);
+    }
+}
 
+function processar_Dez(cor, roll, rollAnterior) {
   //     //DEZZZZZZZ 10
 
   if (roll === 10 && rollAnterior != 10) {
@@ -378,7 +432,7 @@ function telegram(roll, rollAnterior, cor) {
       } else if (cor !== "Vermelho") {
         bot.telegram.sendMessage(
           -1001677942242,
-          `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDezG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDezG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
@@ -388,7 +442,7 @@ function telegram(roll, rollAnterior, cor) {
           } else if (cor !== "Vermelho") {
             bot.telegram.sendMessage(
               -1001677942242,
-              `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDezG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDezG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
@@ -404,8 +458,14 @@ function telegram(roll, rollAnterior, cor) {
         }, 300000);
       }
     }, 300000);
-  }
+  } else {
+      setTimeout(() => {
+        startRobo();
+      }, 20000);
+    }
+}
 
+function processar_Nove(cor, roll, rollAnterior) {
   //     //NOVEEEEEEEEEEEE 9
 
   if (roll === 9 && rollAnterior != 9) {
@@ -423,7 +483,7 @@ function telegram(roll, rollAnterior, cor) {
       } else if (cor !== "Vermelho") {
         bot.telegram.sendMessage(
           -1001677942242,
-          `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNoveG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNoveG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
@@ -433,7 +493,7 @@ function telegram(roll, rollAnterior, cor) {
           } else if (cor !== "Vermelho") {
             bot.telegram.sendMessage(
               -1001677942242,
-              `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNoveG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNoveG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
@@ -449,9 +509,67 @@ function telegram(roll, rollAnterior, cor) {
         }, 240000);
       }
     }, 240000);
-  }
+  } else {
+      setTimeout(() => {
+        startRobo();
+      }, 20000);
+    }
+}    
 
-  //     //OIIIIIIIIIITO 8
+function processar_Seis(cor, roll, rollAnterior) {
+  //     //OIIIIIIIIIITO 6
+
+  if (roll === 6 && rollAnterior != 6) {
+    console.log("PALPITE DE SINAL");
+    bot.telegram.sendMessage(
+      -1001677942242,
+      `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOito)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+      { parse_mode: "HTML" }
+    );
+
+    setTimeout(() => {
+      if (cor === "Vermelho") {
+        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+        startRobo();
+      } else if (cor !== "Vermelho") {
+        bot.telegram.sendMessage(
+          -1001677942242,
+          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          { parse_mode: "HTML" }
+        );
+        setTimeout(() => {
+          if (cor === "Vermelho") {
+            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+            startRobo();
+          } else if (cor !== "Vermelho") {
+            bot.telegram.sendMessage(
+              -1001677942242,
+              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              { parse_mode: "HTML" }
+            );
+            setTimeout(() => {
+              if (cor === "Vermelho") {
+                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+                startRobo();
+              } else {
+                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                startRobo();
+              }
+            }, 180000);
+          }
+        }, 180000);
+      }
+    }, 180000);
+  } else {
+      setTimeout(() => {
+        startRobo();
+      }, 20000);
+    }
+}
+
+function processar_Oito(cor, roll, rollAnterior) {
+
+    //     //OIIIIIIIIIITO 8
 
   if (roll === 8 && rollAnterior != 8) {
     console.log("PALPITE DE SINAL");
@@ -468,7 +586,7 @@ function telegram(roll, rollAnterior, cor) {
       } else if (cor !== "Preto") {
         bot.telegram.sendMessage(
           -1001677942242,
-          `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
@@ -478,7 +596,7 @@ function telegram(roll, rollAnterior, cor) {
           } else if (cor !== "Preto") {
             bot.telegram.sendMessage(
               -1001677942242,
-              `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
@@ -494,7 +612,14 @@ function telegram(roll, rollAnterior, cor) {
         }, 180000);
       }
     }, 180000);
-  }
+  } else {
+      setTimeout(() => {
+        startRobo();
+      }, 20000);
+    }
+}
+
+function processar_Onze(cor, roll, rollAnterior) {
 
   // ONZEEEEEEEEEEE 11
   if (roll === 11 && rollAnterior != 11) {
@@ -512,7 +637,7 @@ function telegram(roll, rollAnterior, cor) {
       } else if (cor !== "Preto") {
         bot.telegram.sendMessage(
           -1001677942242,
-          `<b>Palpite Sinal G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOnzeG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOnzeG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
@@ -522,7 +647,7 @@ function telegram(roll, rollAnterior, cor) {
           } else if (cor !== "Preto") {
             bot.telegram.sendMessage(
               -1001677942242,
-              `<b>Palpite Sinal G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOnzeG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOnzeG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
@@ -538,10 +663,41 @@ function telegram(roll, rollAnterior, cor) {
         }, 360000);
       }
     }, 360000);
-  }
+  } else {
+      setTimeout(() => {
+        startRobo();
+      }, 20000);
+    }
 }
 
-startRobo();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // bot.telegram.sendPhoto(-1001677942242, "SINAL VENCEDOR TESTE");
 
