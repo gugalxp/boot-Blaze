@@ -133,6 +133,7 @@ function telegram(roll, rollAnterior, cor) {
   if (roll === 0) { 
     setTimeout(() => {
       bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+      startRobo();
     }, 5000); 
   }
   
@@ -140,6 +141,7 @@ function telegram(roll, rollAnterior, cor) {
 
   if (roll === 1) { 
     setTimeout(() => {
+      startRobo();
     }, 40000); 
   }
   
@@ -164,6 +166,7 @@ function telegram(roll, rollAnterior, cor) {
 
   if (roll === 4) {
     setTimeout(() => {
+      startRobo();
       console.log("4")
     }, 20000); 
   }
@@ -311,9 +314,7 @@ function processar_Doze(cor, dataDoze) {
     }
   }, 1000);
 
-  setInterval(() => {
     console.log("COR ATUALIZADA TREZE", cor)    
-  }, 2000);
 
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
@@ -625,7 +626,7 @@ function processar_Onze(cor, dataOnze) {
           }
         }, 28000);
       }
-    }, 300000);
+    }, 305000);
 }
 
 
