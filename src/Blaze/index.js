@@ -1,17 +1,40 @@
 import axios from "axios";
 import { Telegraf } from "telegraf";
 
-let resultados;
 const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
+const tokenWin = "CAACAgEAAxkBAAIBZmPQgIw04i-VzNmGbon5dR_ffIMnAAKNAgAC2vqYR85jELH6CAEKLQQ";
+const tokenLoss = "CAACAgEAAxkBAAIBaWPQgI-sPTdvdQABoP7i1lxpydwVUgACEQIAAvqqmEfmghiZF6aGxy0E";
+const tokenWinBranco = "CAACAgEAAxkBAAIBZ2PQgI7oCLSa-bbkgpbgnz17NVZ-AAKlAgACDr2ZRwJCHf6fmiOqLQQ";
+const tokenChat = -1001677942242;
+let corAtual;
 
+function atualizarCor() {
+  axios
+  .get("https://api2.minhablaze.com.br/api/v1/result/double")
 
+  .then(function (response) {
+    (response) => response.json();
+
+    let resultados = response.data.results;
+    let tamanho = resultados.length;
+    let casa = 1;
+    let indice = tamanho - casa;
+    let cor = resultados[indice].color;
+    corAtual = cor;
+  })
+}
+setInterval(() => {
+  atualizarCor();
+}, 1000);
+  
 function startRobo() {
   axios
     .get("https://api2.minhablaze.com.br/api/v1/result/double")
 
     .then(function (response) {
       (response) => response.json();
-      resultados = response.data.results;
+
+      let resultados = response.data.results;
       let tamanho = resultados.length;
       let casa = 1;
       let indice = tamanho - casa;
@@ -21,127 +44,12 @@ function startRobo() {
       let rollAnterior = resultados[indiceAnterior].roll;
       let cor = resultados[indice].color;
 
-      // setInterval(() => {
-      //   // Faz a requisição para verificar se os dados foram atualizados
-      //   axios.get('https://api2.minhablaze.com.br/api/v1/result/double')
-      //     .then(json => {
-
-      //       // Verifica se os dados foram atualizados
-      //       if (json !== resultados) {  
-      //         console.log('Dados atualizados!');
-      //         if (roll !== 11 || roll !== 8 || roll !== 9 || roll !== 10 || roll !== 12 || roll !== 13) {
-      //           setTimeout(() => {
-      //             startRobo()
-      //           }, 60000);
-      //         } 
-      //       } else {
-      //         console.log('Dados não atualizados.');
-      //       }
-      //     });
-      // }, 15000);
-    
-        return telegram(roll, rollAnterior, cor);
+      return telegram(roll, rollAnterior, cor);
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
     });
-}
-
-  //ONZE
-  const dataOnze = new Date();
-  dataOnze.setSeconds(dataOnze.getSeconds() + 0);
-  dataOnze.setMinutes(dataOnze.getMinutes() + 6);
-  dataOnze.setHours(dataOnze.getHours() + 0);
-
-  const dataOnzeG1 = new Date();
-  dataOnzeG1.setSeconds(dataOnzeG1.getSeconds() + 0);
-  dataOnzeG1.setMinutes(dataOnzeG1.getMinutes() + 12);
-  dataOnzeG1.setHours(dataOnzeG1.getHours() + 0);
-
-  const dataOnzeG2 = new Date();
-  dataOnzeG2.setSeconds(dataOnzeG2.getSeconds() + 0);
-  dataOnzeG2.setMinutes(dataOnzeG2.getMinutes() + 18);
-  dataOnzeG2.setHours(dataOnzeG2.getHours() + 0);
-
-  //OITO
-  const dataOito = new Date();
-  dataOito.setSeconds(dataOito.getSeconds() + 0);
-  dataOito.setMinutes(dataOito.getMinutes() + 3);
-  dataOito.setHours(dataOito.getHours() + 0);
-
-  const dataOitoG1 = new Date();
-  dataOitoG1.setSeconds(dataOitoG1.getSeconds() + 0);
-  dataOitoG1.setMinutes(dataOitoG1.getMinutes() + 6);
-  dataOitoG1.setHours(dataOitoG1.getHours() + 0);
-
-  const dataOitoG2 = new Date();
-  dataOitoG2.setSeconds(dataOitoG2.getSeconds() + 0);
-  dataOitoG2.setMinutes(dataOitoG2.getMinutes() + 9);
-  dataOitoG2.setHours(dataOitoG2.getHours() + 0);
-
-  //NOVE
-  const dataNove = new Date();
-  dataNove.setSeconds(dataNove.getSeconds() + 0);
-  dataNove.setMinutes(dataNove.getMinutes() + 4);
-  dataNove.setHours(dataNove.getHours() + 0);
-
-  const dataNoveG1 = new Date();
-  dataNoveG1.setSeconds(dataNoveG1.getSeconds() + 0);
-  dataNoveG1.setMinutes(dataNoveG1.getMinutes() + 8);
-  dataNoveG1.setHours(dataNoveG1.getHours() + 0);
-
-  const dataNoveG2 = new Date();
-  dataNoveG2.setSeconds(dataNoveG2.getSeconds() + 0);
-  dataNoveG2.setMinutes(dataNoveG2.getMinutes() + 12);
-  dataNoveG2.setHours(dataNoveG2.getHours() + 0);
-
-  //DEZ
-  const dataDez = new Date();
-  dataDez.setSeconds(dataDez.getSeconds() + 0);
-  dataDez.setMinutes(dataDez.getMinutes() + 5);
-  dataDez.setHours(dataDez.getHours() + 0);
-
-  const dataDezG1 = new Date();
-  dataDezG1.setSeconds(dataDezG1.getSeconds() + 0);
-  dataDezG1.setMinutes(dataDezG1.getMinutes() + 10);
-  dataDezG1.setHours(dataDezG1.getHours() + 0);
-
-  const dataDezG2 = new Date();
-  dataDezG2.setSeconds(dataDezG2.getSeconds() + 0);
-  dataDezG2.setMinutes(dataDezG2.getMinutes() + 15);
-  dataDezG2.setHours(dataDezG2.getHours() + 0);
-
-  //DOZE
-  const dataDoze = new Date();
-  dataDoze.setSeconds(dataDoze.getSeconds() + 0);
-  dataDoze.setMinutes(dataDoze.getMinutes() + 7);
-  dataDoze.setHours(dataDoze.getHours() + 0);
-
-  const dataDozeG1 = new Date();
-  dataDozeG1.setSeconds(dataDozeG1.getSeconds() + 0);
-  dataDozeG1.setMinutes(dataDozeG1.getMinutes() + 14);
-  dataDozeG1.setHours(dataDozeG1.getHours() + 0);
-
-  const dataDozeG2 = new Date();
-  dataDozeG2.setSeconds(dataDozeG2.getSeconds() + 0);
-  dataDozeG2.setMinutes(dataDozeG2.getMinutes() + 21);
-  dataDozeG2.setHours(dataDozeG2.getHours() + 0);
-
-  //TREZE
-  const dataTreze = new Date();
-  dataTreze.setSeconds(dataTreze.getSeconds() + 0);
-  dataTreze.setMinutes(dataTreze.getMinutes() + 8);
-  dataTreze.setHours(dataTreze.getHours() + 0);
-
-  const dataTrezeG1 = new Date();
-  dataTrezeG1.setSeconds(dataTrezeG1.getSeconds() + 0);
-  dataTrezeG1.setMinutes(dataTrezeG1.getMinutes() + 16);
-  dataTrezeG1.setHours(dataTrezeG1.getHours() + 0);
-
-  const dataTrezeG2 = new Date();
-  dataTrezeG2.setSeconds(dataTrezeG2.getSeconds() + 0);
-  dataTrezeG2.setMinutes(dataTrezeG2.getMinutes() + 24);
-  dataTrezeG2.setHours(dataTrezeG2.getHours() + 0);
+}  
 
 function zeroFill(n) {
   return n < 9 ? `0${n}` : `${n}`;
@@ -153,7 +61,7 @@ function formatDate(date) {
   // const y = zeroFill(date.getFullYear());
   const h = zeroFill(date.getHours());
   const mi = zeroFill(date.getMinutes());
-  // const s = zeroFill(date.getSeconds());
+  const s = zeroFill(date.getSeconds());
 
   return `${h}:${mi}`;
 }
@@ -162,6 +70,48 @@ function telegram(roll, rollAnterior, cor) {
   console.log("local Atual", roll);
   console.log("local Anterior", rollAnterior);
   console.log("COR", cor);
+
+  //ONZE
+  const dataOnze = new Date();
+  dataOnze.setSeconds(dataOnze.getSeconds() + 0);
+  dataOnze.setMinutes(dataOnze.getMinutes() + 5);
+  dataOnze.setHours(dataOnze.getHours() + 0);
+
+  //OITO
+  const dataOito = new Date();
+  dataOito.setSeconds(dataOito.getSeconds() + 0);
+  dataOito.setMinutes(dataOito.getMinutes() + 4);
+  dataOito.setHours(dataOito.getHours() + 0);
+
+  //NOVE
+  const dataNove = new Date();
+  dataNove.setSeconds(dataNove.getSeconds() + 0);
+  dataNove.setMinutes(dataNove.getMinutes() + 4);
+  dataNove.setHours(dataNove.getHours() + 0);
+
+  //DEZ
+  const dataDez = new Date();
+  dataDez.setSeconds(dataDez.getSeconds() + 0);
+  dataDez.setMinutes(dataDez.getMinutes() + 5);
+  dataDez.setHours(dataDez.getHours() + 0);
+
+  //DOZE
+  const dataDoze = new Date();
+  dataDoze.setSeconds(dataDoze.getSeconds() + 0);
+  dataDoze.setMinutes(dataDoze.getMinutes() + 6);
+  dataDoze.setHours(dataDoze.getHours() + 0);
+
+  //TREZE
+  const dataTreze = new Date();
+  dataTreze.setSeconds(dataTreze.getSeconds() + 0);
+  dataTreze.setMinutes(dataTreze.getMinutes() + 6);
+  dataTreze.setHours(dataTreze.getHours() + 0);
+
+  //SEIS
+  const dataSeis = new Date();
+  dataSeis.setSeconds(dataSeis.getSeconds() + 0);
+  dataSeis.setMinutes(dataSeis.getMinutes() + 3);
+  dataSeis.setHours(dataSeis.getHours() + 0);
 
   switch (cor) {
     case 1:
@@ -175,34 +125,33 @@ function telegram(roll, rollAnterior, cor) {
       break;
   }
 
+  if (roll === rollAnterior) {
+    console.log("Numeros iguais. Espere a próxima rodada")
+  } else {
   // 0
 
-  if (roll === 0) {
+  if (roll === 0) { 
     setTimeout(() => {
-      startRobo();
-      console.log("1")
-    }, 20000); 
+      bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+    }, 5000); 
   }
   
   // 1
 
-  if (roll === 1) {
+  if (roll === 1) { 
     setTimeout(() => {
-      startRobo();
-      console.log("1")
-    }, 20000); 
+    }, 40000); 
   }
-
+  
   // 2
-
+  
   if (roll === 2) {
     setTimeout(() => {
       startRobo();
       console.log("2")
     }, 20000); 
   }
-
-  // 3
+    // 3
 
   if (roll === 3) {
     setTimeout(() => {
@@ -215,26 +164,16 @@ function telegram(roll, rollAnterior, cor) {
 
   if (roll === 4) {
     setTimeout(() => {
-      startRobo();
       console.log("4")
     }, 20000); 
   }
 
   // 5
 
-  if (roll === 5) {
+  if (roll === 5) { 
     setTimeout(() => {
       startRobo();
       console.log("5")
-    }, 20000); 
-  }
-
-  // 6
-
-  if (roll === 6) {
-    setTimeout(() => {
-      startRobo();
-      console.log("6")
     }, 20000); 
   }
 
@@ -247,76 +186,76 @@ function telegram(roll, rollAnterior, cor) {
     }, 20000); 
   }
 
-  // 8
-
-  if (roll === 8) {
-    setTimeout(() => {
-      startRobo();
-      console.log("8")
-    }, 20000); 
-  }
-
   // 14
 
   if (roll === 14) {
     setTimeout(() => {
       startRobo();
       console.log("14")
-    }, 20000); 
+    }, 20000);
+  } 
+
+    //TREZE
+  
+    if (roll === 13 && rollAnterior != 13) {
+      processar_Treze(cor, dataTreze);
+    }
+  
+    //DOZE
+  
+    if (roll === 12 && rollAnterior != 12) {
+      processar_Doze(cor, dataDoze);
+    }
+  
+    //DEZ
+  
+    if (roll === 10 && rollAnterior != 10) {
+      processar_Dez(cor, dataDez);
+    }
+  
+    //NOVE
+    if (roll === 9 && rollAnterior != 9) {
+      processar_Nove(cor, dataNove);
+    }
+  
+    //SEIS
+  
+    if (roll === 6 && rollAnterior != 6) {
+      processar_Seis(cor, dataSeis);
+    }
+  
+    //OITO
+    
+    if (roll === 8 && rollAnterior != 8) {
+      processar_Oito(cor, dataOito);
+    }
+  
+    //ONZE
+    
+    if (roll === 11 && rollAnterior != 11) {
+      processar_Onze(cor, dataOnze);
+    }
   }
   
-  //TREZE
-
-  if (roll === 13 && rollAnterior != 13) {
-    processar_Treze(cor, roll, rollAnterior);
-  }
-
-  //DOZE
-
-  if (roll === 12 && rollAnterior != 12) {
-    processar_Doze(cor, roll, rollAnterior);
-  }
-
-  //DEZ
-
-  if (roll === 10 && rollAnterior != 10) {
-    processar_Dez(cor, roll, rollAnterior);
-  }
-
-  //NOVE
-  if (roll === 9 && rollAnterior != 9) {
-    processar_Nove(cor, roll, rollAnterior);
-  }
-
-  //SEIS
-
-  if (roll === 6 && rollAnterior != 6) {
-    processar_Seis(cor, roll, rollAnterior);
-  }
-
-  //OITO
-  
-  if (roll === 8 && rollAnterior != 8) {
-    processar_Oito(cor, roll, rollAnterior);
-  }
-
-  //ONZE
-  
-  if (roll === 11 && rollAnterior != 11) {
-    processar_Onze(cor, roll, rollAnterior);
-  }
 
 }
 
 startRobo();
  
-function processar_Treze(cor, roll, rollAnterior) {
+function processar_Treze(cor, dataTreze) {
+  
+
+
   //     //TREEEEEEZE 13
-  if (roll === 13 && rollAnterior != 13) {
+  setInterval(() => {
+    if (cor !== corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+    }
+  }, 1000);
 
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
-      -1001677942242,
+      tokenChat,
       `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
         dataTreze
       )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
@@ -324,382 +263,375 @@ function processar_Treze(cor, roll, rollAnterior) {
     );
 
     setTimeout(() => {
-      if (cor === "Vermelho") {
-        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+      console.log("COR verificação SINAL palpite", cor)
+
+      if (cor === "Vermelho" || cor === 1) {
+        bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Vermelho") {
+      } else if (cor !== "Vermelho" || cor === 1) {
         bot.telegram.sendMessage(
-          -1001677942242,
-          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-            dataTrezeG1
-          )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          tokenChat,
+          `<b> ❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }  
         );
+        setTimeout(() => {
+          console.log("COR verificação SINAL G1", cor)
+
           if (cor === "Vermelho") {
-            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+            bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Vermelho") {
+          } else if (cor !== "Vermelho" || cor === 1) {
             bot.telegram.sendMessage(
-              -1001677942242,
-              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-                dataTrezeG2
-              )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              tokenChat,
+              `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
-              if (cor === "Vermelho") {
-                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+            setTimeout(() => {
+              console.log("COR verificação SINAL G2", cor)
+
+              if (cor === "Vermelho" || cor === 1) {
+                bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
-                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
+            }, 28000); //28000
           }
+        }, 28000);
       }
-    }, 480000); //
-  }  else {
-      setTimeout(() => {
-        startRobo();
-      }, 20000);
-  }
+    }, 360000); //360000
 }
 
-function processar_Doze(cor, roll, rollAnterior) {
+function processar_Doze(cor, dataDoze) {
   //     //DOZZZZZZZE 12
-  if (roll === 12 && rollAnterior != 12) {
+  setInterval(() => {
+    if (cor !== corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+    }
+  }, 1000);
+
+  setInterval(() => {
+    console.log("COR ATUALIZADA TREZE", cor)    
+  }, 2000);
 
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
-      -1001677942242,
+      tokenChat,
       `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDoze)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
       { parse_mode: "HTML" }
     );
 
     setTimeout(() => {
-      if (cor === "Preto") {
-        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+      if (cor === "Preto" || cor === 2) {
+        bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Preto") {
+      } else if (cor !== "Preto" || cor === 2) {
         bot.telegram.sendMessage(
-          -1001677942242,
-          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDozeG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          tokenChat,
+          `<b>❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
-          if (cor === "Preto") {
-            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+          if (cor === "Preto" || cor === 2) {
+            bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Preto") {
+          } else if (cor !== "Preto" || cor === 2) {
             bot.telegram.sendMessage(
-              -1001677942242,
-              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDozeG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              tokenChat,
+              `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
-              if (cor === "Preto") {
-                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+              if (cor === "Preto" || cor === 2) {
+                bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
-                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 420000);
+            }, 28000);
           }
-        }, 420000);
+        }, 28000);
       }
-    }, 420000);
-  } else {
-      setTimeout(() => {
-        startRobo();
-      }, 20000);
-    }
+    }, 360000);
 }
 
-function processar_Dez(cor, roll, rollAnterior) {
+function processar_Dez(cor, dataDez) {
   //     //DEZZZZZZZ 10
+  setInterval(() => {
+    if (cor !== corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+    }
+  }, 1000);
 
-  if (roll === 10 && rollAnterior != 10) {
+    console.log("COR ATUALIZADA TREZE", cor)
+
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
-      -1001677942242,
+      tokenChat,
       `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDez)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
       { parse_mode: "HTML" }
     );
 
     setTimeout(() => {
-      if (cor === "Vermelho") {
-        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+      if (cor === "Vermelho" || cor === 1) {
+        bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Vermelho") {
+      } else if (cor !== "Vermelho" || cor === 1) {
         bot.telegram.sendMessage(
-          -1001677942242,
-          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDezG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          tokenChat,
+          `<b> ❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
-          if (cor === "Vermelho") {
-            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+          if (cor === "Vermelho" || cor === 1) {
+            bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Vermelho") {
+          } else if (cor !== "Vermelho" || cor === 1) {
             bot.telegram.sendMessage(
-              -1001677942242,
-              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataDezG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              tokenChat,
+              `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
-              if (cor === "Vermelho") {
-                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+              if (cor === "Vermelho" || cor === 1) {
+                bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
-                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 300000);
+            }, 28000);
           }
-        }, 300000);
+        }, 28000);
       }
     }, 300000);
-  } else {
-      setTimeout(() => {
-        startRobo();
-      }, 20000);
-    }
 }
 
-function processar_Nove(cor, roll, rollAnterior) {
-  //     //NOVEEEEEEEEEEEE 9
+function processar_Nove(cor, dataNove) {
 
-  if (roll === 9 && rollAnterior != 9) {
-    console.log("PALPITE DE SINAL");
-    bot.telegram.sendMessage(
-      -1001677942242,
-      `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNove)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-      { parse_mode: "HTML" }
-    );
-
-    setTimeout(() => {
-      if (cor === "Vermelho") {
-        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
-        startRobo();
-      } else if (cor !== "Vermelho") {
-        bot.telegram.sendMessage(
-          -1001677942242,
-          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNoveG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-          { parse_mode: "HTML" }
-        );
-        setTimeout(() => {
-          if (cor === "Vermelho") {
-            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
-            startRobo();
-          } else if (cor !== "Vermelho") {
-            bot.telegram.sendMessage(
-              -1001677942242,
-              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNoveG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-              { parse_mode: "HTML" }
-            );
-            setTimeout(() => {
-              if (cor === "Vermelho") {
-                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
-                startRobo();
-              } else {
-                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
-                startRobo();
-              }
-            }, 240000);
-          }
-        }, 240000);
-      }
-    }, 240000);
-  } else {
-      setTimeout(() => {
-        startRobo();
-      }, 20000);
+  setInterval(() => {
+    if (cor !== corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
     }
+  }, 1000);
+    
+  console.log("COR ATUALIZADA TREZE", cor)
+
+  //NOVEEEEEEEEEEEE 9
+  
+      console.log("PALPITE DE SINAL");
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataNove)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+
+      setTimeout(() => {
+        if (cor === "Vermelho" || cor === 1) {
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          startRobo();
+        } else if (cor !== "Vermelho" || cor === 1) {
+          bot.telegram.sendMessage(
+            tokenChat,
+            `<b>❇️ 1º GALE</b>`,
+            { parse_mode: "HTML" }
+          );
+          setTimeout(() => {
+            if (cor === "Vermelho" || cor === 1) {
+              bot.telegram.sendSticker(tokenChat, tokenWin);
+              startRobo();
+            } else if (cor !== "Vermelho" || cor === 1) {
+              bot.telegram.sendMessage(
+                tokenChat,
+                `<b>❇️ 2º GALE</b>`,
+                { parse_mode: "HTML" }
+              );
+              setTimeout(() => {
+                if (cor === "Vermelho" || cor === 1) {
+                  bot.telegram.sendSticker(tokenChat, tokenWin);
+                  startRobo();
+                } else {
+                  bot.telegram.sendSticker(tokenChat, tokenLoss);
+                  startRobo();
+                }
+              }, 28000);
+            }
+          }, 28000);
+        }
+      }, 255000); //255000
 }    
 
-function processar_Seis(cor, roll, rollAnterior) {
+function processar_Seis(cor, dataSeis) {
   //     //OIIIIIIIIIITO 6
+  setInterval(() => {
+    if (cor !== corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+    }
+  }, 1000);
 
-  if (roll === 6 && rollAnterior != 6) {
+  console.log("COR ATUALIZADA TREZE", cor)
+
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
-      -1001677942242,
-      `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOito)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+      tokenChat,
+      `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataSeis)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
       { parse_mode: "HTML" }
     );
 
     setTimeout(() => {
-      if (cor === "Vermelho") {
-        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+      if (cor === "Vermelho" || cor === 1) {
+        bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Vermelho") {
+      } else if (cor !== "Vermelho" || cor === 1) {
         bot.telegram.sendMessage(
-          -1001677942242,
-          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG1)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          tokenChat,
+          `<b>❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
-          if (cor === "Vermelho") {
-            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+          if (cor === "Vermelho" || cor === 1) {
+            bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Vermelho") {
+          } else if (cor !== "Vermelho" || cor === 1) {
             bot.telegram.sendMessage(
-              -1001677942242,
-              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG2)} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              tokenChat,
+              `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
-              if (cor === "Vermelho") {
-                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+              if (cor === "Vermelho" || cor === 1) {
+                bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
-                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 180000);
+            }, 28000);
           }
-        }, 180000);
+        }, 28000);
       }
     }, 180000);
-  } else {
-      setTimeout(() => {
-        startRobo();
-      }, 20000);
-    }
 }
 
-function processar_Oito(cor, roll, rollAnterior) {
+function processar_Oito(cor, dataOito) {
+  //     //OITOO
+  setInterval(() => {
+    if (cor !== corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+    }
+  }, 1000);
+  
+  console.log("COR ATUALIZADA TREZE", cor)
 
-    //     //OIIIIIIIIIITO 8
-
-  if (roll === 8 && rollAnterior != 8) {
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
-      -1001677942242,
-      `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOito)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+      tokenChat,
+      `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
+        dataOito
+      )} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
       { parse_mode: "HTML" }
     );
 
     setTimeout(() => {
-      if (cor === "Preto") {
-        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+      console.log("COR verificação SINAL palpite", cor)
+
+      if (cor === "Preto" || cor === 2) {
+        bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Preto") {
+      } else if (cor !== "Preto" || cor === 2) {
         bot.telegram.sendMessage(
-          -1001677942242,
-          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-          { parse_mode: "HTML" }
+          tokenChat,
+          `<b> ❇️ 1º GALE</b>`,
+          { parse_mode: "HTML" }  
         );
         setTimeout(() => {
-          if (cor === "Preto") {
-            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+          console.log("COR verificação SINAL G1", cor)
+
+          if (cor === "Preto" || cor === 2) {
+            bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Preto") {
+          } else if (cor !== "Preto" || cor === 2) {
             bot.telegram.sendMessage(
-              -1001677942242,
-              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOitoG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              tokenChat,
+              `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
-              if (cor === "Preto") {
-                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+              console.log("COR verificação SINAL G2", cor)
+
+              if (cor === "Preto" || cor === 2) {
+                bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
-                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 180000);
+            }, 28000);
           }
-        }, 180000);
+        }, 28000);
       }
-    }, 180000);
-  } else {
-      setTimeout(() => {
-        startRobo();
-      }, 20000);
-    }
+    }, 240000); //
 }
 
-function processar_Onze(cor, roll, rollAnterior) {
+function processar_Onze(cor, dataOnze) {
 
   // ONZEEEEEEEEEEE 11
-  if (roll === 11 && rollAnterior != 11) {
+  setInterval(() => {
+    if (cor !== corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+    }
+  }, 1000);
+    
+    console.log("COR ATUALIZADA TREZE", cor)
+
     console.log("PALPITE DE SINAL");
     bot.telegram.sendMessage(
-      -1001677942242,
+      tokenChat,
       `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOnze)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
       { parse_mode: "HTML" }
     );
 
     setTimeout(() => {
-      if (cor === "Preto") {
-        bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+      if (cor === "Preto" || cor === 2) {
+        bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Preto") {
+      } else if (cor !== "Preto" || cor === 2) {
         bot.telegram.sendMessage(
-          -1001677942242,
-          `<b> G1 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOnzeG1)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+          tokenChat,
+          `<b> ❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
-          if (cor === "Preto") {
-            bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+          if (cor === "Preto" || cor === 2) {
+            bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Preto") {
+          } else if (cor !== "Preto" || cor === 2) {
             bot.telegram.sendMessage(
-              -1001677942242,
-              `<b> G2 📊</b> \n\n⏰HORÁRIO: ${formatDate(dataOnzeG2)} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+              tokenChat,
+              `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
-              if (cor === "Preto") {
-                bot.telegram.sendMessage(-1001677942242, "SINAL VENCEDOR");
+              if (cor === "Preto" || cor === 2) {
+                bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
-                bot.telegram.sendMessage(-1001677942242, "LOSSSSSSSSSSSSSSS");
+                bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 360000);
+            }, 28000);
           }
-        }, 360000);
+        }, 28000);
       }
-    }, 360000);
-  } else {
-      setTimeout(() => {
-        startRobo();
-      }, 20000);
-    }
+    }, 300000);
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // bot.telegram.sendPhoto(-1001677942242, "SINAL VENCEDOR TESTE");
+  // bot.telegram.sendPhoto(tokenChat, "SINAL VENCEDOR TESTE");
 
   // if (cor == "Vermelho") {
   //     bot.telegram.sendMessage(-1001677942242, "VERMELHOOO");
