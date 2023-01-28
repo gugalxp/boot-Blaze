@@ -6,7 +6,25 @@ const tokenWin = "CAACAgEAAxkBAAIBZmPQgIw04i-VzNmGbon5dR_ffIMnAAKNAgAC2vqYR85jEL
 const tokenLoss = "CAACAgEAAxkBAAIBaWPQgI-sPTdvdQABoP7i1lxpydwVUgACEQIAAvqqmEfmghiZF6aGxy0E";
 const tokenWinBranco = "CAACAgEAAxkBAAIBZ2PQgI7oCLSa-bbkgpbgnz17NVZ-AAKlAgACDr2ZRwJCHf6fmiOqLQQ";
 const tokenChat = -1001677942242;
+const tokenDezWin = "CAACAgEAAxkBAAIBbmPUHl8DMFBVJ2leqbWGbX8V_BLXAALBAQACItOYR1MSdzf5soPrLQQ";
+const tokenTresLoss = "CAACAgEAAxkBAAIBb2PUHmJR8cSsn_GVb_fpL7aLIHEzAAKhAQACZeSYR07EHvb3FpgRLQQ";
 let corAtual;
+let countWin = 0;
+let countLoss = 0;
+
+
+
+setInterval(function() {
+  if (countWin === 10 && countLoss === 0) {
+      bot.telegram.sendSticker(tokenChat, tokenDezWin);
+      countWin = 0;
+  }
+
+  if (countLoss === 3 && countLoss === 0) {
+    bot.telegram.sendSticker(tokenChat, tokenTresLoss);
+    countLoss = 0;
+  }
+}, 1000);
 
 function atualizarCor() {
   axios
@@ -34,17 +52,29 @@ function startRobo() {
     .then(function (response) {
       (response) => response.json();
 
+      // let numbers = [2, 2, 2, 4];
+      // let randomIndex = Math.floor(Math.random() * numbers.length);   
+      // let randomNumber = numbers[randomIndex];
+
+      // let numbers2 = [2, 2, 2, 4];
+      // let randomIndex2 = Math.floor(Math.random() * numbers2.length);   
+      // let randomNumber2 = numbers2[randomIndex2];
+
       let resultados = response.data.results;
       let tamanho = resultados.length;
       let casa = 1;
       let indice = tamanho - casa;
-      let roll = resultados[indice].roll;
+      let roll = randomNumber //resultados[indice].roll;
       let casaAnterior = 2;
       let indiceAnterior = tamanho - casaAnterior;
-      let rollAnterior = resultados[indiceAnterior].roll;
+      let rollAnterior = randomNumber2 //resultados[indiceAnterior].roll;
       let cor = resultados[indice].color;
 
-      return telegram(roll, rollAnterior, cor);
+      if (roll != rollAnterior) {
+        return telegram(roll , rollAnterior, cor);
+      } else {
+        startRobo();
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -102,7 +132,7 @@ function telegram(roll, rollAnterior, cor) {
   dataDoze.setHours(dataDoze.getHours() + 0);
 
   //TREZE
-  const dataTreze = new Date();
+  const dataTreze = new Date();   
   dataTreze.setSeconds(dataTreze.getSeconds() + 0);
   dataTreze.setMinutes(dataTreze.getMinutes() + 6);
   dataTreze.setHours(dataTreze.getHours() + 0);
@@ -126,78 +156,25 @@ function telegram(roll, rollAnterior, cor) {
   }
 
   if (roll === rollAnterior) {
-    console.log("Numeros iguais. Espere a próxima rodada")
-  } else {
+      return startRobo();
+  }
+
   // 0
 
-  if (roll === 0) { 
-    setTimeout(() => {
-      bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-      startRobo();
+  if (roll === 0 || roll === 1 || roll === 2 || roll === 3 || roll === 4 || roll === 5 || roll === 7 || roll === 14) { 
+
+    let countZero = 0;
+    const intervalIdZero = setInterval(function() {
+      countZero++;
+      if (countZero === 1) {
+        clearInterval(intervalIdZero);
+      }
+      setTimeout(() => {
+        startRobo()
+      }, 20000);
     }, 5000); 
   }
   
-  // 1
-
-  if (roll === 1) { 
-    setTimeout(() => {
-      startRobo();
-    }, 40000); 
-  }
-  
-  // 2
-  
-  if (roll === 2) {
-    setTimeout(() => {
-      startRobo();
-      console.log("2")
-    }, 20000); 
-  }
-    // 3
-
-  if (roll === 3) {
-    setTimeout(() => {
-      startRobo();
-      console.log("3")
-    }, 20000); 
-  }
-
-  // 4
-
-  if (roll === 4) {
-    setTimeout(() => {
-      startRobo();
-      console.log("4")
-    }, 20000); 
-  }
-
-  // 5
-
-  if (roll === 5) { 
-    setTimeout(() => {
-      startRobo();
-      console.log("5")
-    }, 20000); 
-  }
-
-  // 7
-
-  if (roll === 7) {
-    setTimeout(() => {
-      startRobo();
-      console.log("7")
-    }, 20000); 
-  }
-
-  // 14
-
-  if (roll === 14) {
-    setTimeout(() => {
-      startRobo();
-      console.log("14")
-    }, 20000);
-  } 
-
     //TREZE
   
     if (roll === 13 && rollAnterior != 13) {
@@ -239,17 +216,12 @@ function telegram(roll, rollAnterior, cor) {
       processar_Onze(cor, dataOnze);
     }
   }
-  
-
-}
 
 startRobo();
  
 function processar_Treze(cor, dataTreze) {
-  
 
-
-  //     //TREEEEEEZE 13
+      //TREEEEEEZE 13
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
@@ -268,10 +240,16 @@ function processar_Treze(cor, dataTreze) {
     setTimeout(() => {
       console.log("COR verificação SINAL palpite", cor)
 
+      if (cor === 0 || cor === "Branco") {
+        countWin += 1
+        startRobo();
+        return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+      }
       if (cor === "Vermelho" || cor === 1) {
+        countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Vermelho" || cor === 1) {
+      } else if (cor !== "Vermelho" || cor !== 1) {
         bot.telegram.sendMessage(
           tokenChat,
           `<b> ❇️ 1º GALE</b>`,
@@ -279,11 +257,17 @@ function processar_Treze(cor, dataTreze) {
         );
         setTimeout(() => {
           console.log("COR verificação SINAL G1", cor)
-
+          
+          if (cor === 0 || cor === "Branco") {
+            countWin += 1
+            startRobo();
+            return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          }
           if (cor === "Vermelho") {
+            countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Vermelho" || cor === 1) {
+          } else if (cor !== "Vermelho" || cor !== 1) {
             bot.telegram.sendMessage(
               tokenChat,
               `<b> ❇️ 2º GALE</b>`,
@@ -291,17 +275,24 @@ function processar_Treze(cor, dataTreze) {
             );
             setTimeout(() => {
               console.log("COR verificação SINAL G2", cor)
+              if (cor === 0 || cor === "Branco") {
+                startRobo();
+                countWin += 1
+                return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+              }
 
               if (cor === "Vermelho" || cor === 1) {
+                countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
+                countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 28000); //28000
+            }, 31000); //30000
           }
-        }, 28000);
+        }, 31000);
       }
     }, 360000); //360000
 }
@@ -324,38 +315,58 @@ function processar_Doze(cor, dataDoze) {
     );
 
     setTimeout(() => {
+      if (cor === 0 || cor === "Branco") {
+        countWin += 1
+        startRobo();
+        return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+      }
+
       if (cor === "Preto" || cor === 2) {
+        countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Preto" || cor === 2) {
+      } else if (cor !== "Preto" || cor !== 2) {
         bot.telegram.sendMessage(
           tokenChat,
           `<b>❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
+          if (cor === 0 || cor === "Branco") {
+            countWin += 1
+            startRobo();
+            return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          }
           if (cor === "Preto" || cor === 2) {
+            countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Preto" || cor === 2) {
+          } else if (cor !== "Preto" || cor !== 2) {
             bot.telegram.sendMessage(
               tokenChat,
               `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
+              if (cor === 0 || cor === "Branco") {
+                countWin += 1
+                startRobo();
+                return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+              }
               if (cor === "Preto" || cor === 2) {
+                countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
+                countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 28000);
+            }, 31000);
           }
-        }, 28000);
+        }, 31000);
       }
-    }, 360000);
+    }, 390000);
 }
 
 function processar_Dez(cor, dataDez) {
@@ -376,38 +387,58 @@ function processar_Dez(cor, dataDez) {
     );
 
     setTimeout(() => {
+      if (cor === 0 || cor === "Branco") {
+        countWin += 1
+        startRobo();
+        return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+      }
+      
       if (cor === "Vermelho" || cor === 1) {
+        countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Vermelho" || cor === 1) {
+      } else if (cor !== "Vermelho" || cor !== 1) {
         bot.telegram.sendMessage(
           tokenChat,
           `<b> ❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
+          if (cor === 0 || cor === "Branco") {
+            countWin += 1
+            startRobo();
+            return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          }
           if (cor === "Vermelho" || cor === 1) {
+            countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Vermelho" || cor === 1) {
+          } else if (cor !== "Vermelho" || cor !== 1) {
             bot.telegram.sendMessage(
               tokenChat,
               `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
+              if (cor === 0 || cor === "Branco") {
+                countWin += 1
+                startRobo();
+                return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+              }
               if (cor === "Vermelho" || cor === 1) {
+                countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
+                countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 28000);
+            }, 31000);
           }
-        }, 28000);
+        }, 31000);
       }
-    }, 300000);
+    }, 330000);
 }
 
 function processar_Nove(cor, dataNove) {
@@ -430,38 +461,58 @@ function processar_Nove(cor, dataNove) {
       );
 
       setTimeout(() => {
+        if (cor === 0 || cor === "Branco") {
+          countWin += 1
+          startRobo();
+          return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+        }
+
         if (cor === "Vermelho" || cor === 1) {
+          countWin += 1
           bot.telegram.sendSticker(tokenChat, tokenWin);
           startRobo();
-        } else if (cor !== "Vermelho" || cor === 1) {
+        } else if (cor !== "Vermelho" || cor !== 1) {
           bot.telegram.sendMessage(
             tokenChat,
             `<b>❇️ 1º GALE</b>`,
             { parse_mode: "HTML" }
           );
           setTimeout(() => {
+            if (cor === 0 || cor === "Branco") {
+              countWin += 1
+              startRobo();
+              return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+            }
             if (cor === "Vermelho" || cor === 1) {
+              countWin += 1
               bot.telegram.sendSticker(tokenChat, tokenWin);
               startRobo();
-            } else if (cor !== "Vermelho" || cor === 1) {
+            } else if (cor !== "Vermelho" || cor !== 1) {
               bot.telegram.sendMessage(
                 tokenChat,
                 `<b>❇️ 2º GALE</b>`,
                 { parse_mode: "HTML" }
               );
               setTimeout(() => {
+                if (cor === 0 || cor === "Branco") {
+                  countWin += 1
+                  startRobo();
+                  return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+                }
                 if (cor === "Vermelho" || cor === 1) {
+                  countWin += 1
                   bot.telegram.sendSticker(tokenChat, tokenWin);
                   startRobo();
                 } else {
+                  countLoss += 1
                   bot.telegram.sendSticker(tokenChat, tokenLoss);
                   startRobo();
                 }
-              }, 28000);
+              }, 31000);
             }
-          }, 28000);
+          }, 31000);
         }
-      }, 255000); //255000
+      }, 270000); //255000
 }    
 
 function processar_Seis(cor, dataSeis) {
@@ -482,38 +533,58 @@ function processar_Seis(cor, dataSeis) {
     );
 
     setTimeout(() => {
+      if (cor === 0 || cor === "Branco") {
+        countWin += 1
+        startRobo();
+        return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+      }
+
       if (cor === "Vermelho" || cor === 1) {
+        countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Vermelho" || cor === 1) {
+      } else if (cor !== "Vermelho" || cor !== 1) {
         bot.telegram.sendMessage(
           tokenChat,
           `<b>❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
+          if (cor === 0 || cor === "Branco") {
+            countWin += 1
+            startRobo();
+            return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          }
           if (cor === "Vermelho" || cor === 1) {
+            countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Vermelho" || cor === 1) {
+          } else if (cor !== "Vermelho" || cor !== 1) {
             bot.telegram.sendMessage(
               tokenChat,
               `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
+              if (cor === 0 || cor === "Branco") {
+                countWin += 1
+                startRobo();
+                return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+              }
               if (cor === "Vermelho" || cor === 1) {
+                countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
+                countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 28000);
+            }, 31000);
           }
-        }, 28000);
+        }, 31000);
       }
-    }, 180000);
+    }, 210000);
 }
 
 function processar_Oito(cor, dataOito) {
@@ -536,12 +607,19 @@ function processar_Oito(cor, dataOito) {
     );
 
     setTimeout(() => {
+      if (cor === 0 || cor === "Branco") {
+        countWin += 1
+        startRobo();
+        return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+      }
+
       console.log("COR verificação SINAL palpite", cor)
 
       if (cor === "Preto" || cor === 2) {
+        countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Preto" || cor === 2) {
+      } else if (cor !== "Preto" || cor !== 2) {
         bot.telegram.sendMessage(
           tokenChat,
           `<b> ❇️ 1º GALE</b>`,
@@ -550,10 +628,17 @@ function processar_Oito(cor, dataOito) {
         setTimeout(() => {
           console.log("COR verificação SINAL G1", cor)
 
+          if (cor === 0 || cor === "Branco") {
+            countWin += 1
+            startRobo();
+            return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          }
+
           if (cor === "Preto" || cor === 2) {
+            countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Preto" || cor === 2) {
+          } else if (cor !== "Preto" || cor !== 2) {
             bot.telegram.sendMessage(
               tokenChat,
               `<b> ❇️ 2º GALE</b>`,
@@ -561,19 +646,25 @@ function processar_Oito(cor, dataOito) {
             );
             setTimeout(() => {
               console.log("COR verificação SINAL G2", cor)
-
+              if (cor === 0 || cor === "Branco") {
+                countWin += 1
+                startRobo();
+                return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+              }
               if (cor === "Preto" || cor === 2) {
+                countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
+                countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 28000);
+            }, 31000);
           }
-        }, 28000);
+        }, 31000);
       }
-    }, 240000); //
+    }, 270000); //270000
 }
 
 function processar_Onze(cor, dataOnze) {
@@ -595,38 +686,58 @@ function processar_Onze(cor, dataOnze) {
     );
 
     setTimeout(() => {
+      if (cor === 0 || cor === "Branco") {
+        countWin += 1
+        startRobo();
+        return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+      }
+
       if (cor === "Preto" || cor === 2) {
+        countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
-      } else if (cor !== "Preto" || cor === 2) {
+      } else if (cor !== "Preto" || cor !== 2) {
         bot.telegram.sendMessage(
           tokenChat,
           `<b> ❇️ 1º GALE</b>`,
           { parse_mode: "HTML" }
         );
         setTimeout(() => {
+          if (cor === 0 || cor === "Branco") {
+            countWin += 1
+            startRobo();
+            return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          }
           if (cor === "Preto" || cor === 2) {
+            countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
-          } else if (cor !== "Preto" || cor === 2) {
+          } else if (cor !== "Preto" || cor !== 2) {
             bot.telegram.sendMessage(
               tokenChat,
               `<b> ❇️ 2º GALE</b>`,
               { parse_mode: "HTML" }
             );
             setTimeout(() => {
+              if (cor === 0 || cor === "Branco") {
+                countWin += 1
+                startRobo();
+                return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+              }
               if (cor === "Preto" || cor === 2) {
+                countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
               } else {
+                countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
               }
-            }, 28000);
+            }, 31000);
           }
-        }, 28000);
+        }, 31000);
       }
-    }, 305000);
+    }, 330000);
 }
 
 
