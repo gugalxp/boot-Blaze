@@ -20,13 +20,17 @@ setInterval(function() {
       countWin = 0;
   }
 
-  if (countLoss === 3 && countLoss === 0) {
+  if (countLoss === 3 && countWin === 0) {
     bot.telegram.sendSticker(tokenChat, tokenTresLoss);
     countLoss = 0;
   }
 }, 1000);
 
 function atualizarCor() {
+  axios.create({
+    timeout: 30000,
+  });
+
   axios
   .get("https://api2.minhablaze.com.br/api/v1/result/double")
 
@@ -46,6 +50,10 @@ setInterval(() => {
 }, 1000);
   
 function startRobo() {
+  axios.create({
+    timeout: 30000,
+  });
+  
   axios
     .get("https://api2.minhablaze.com.br/api/v1/result/double")
 
@@ -64,10 +72,10 @@ function startRobo() {
       let tamanho = resultados.length;
       let casa = 1;
       let indice = tamanho - casa;
-      let roll = randomNumber //resultados[indice].roll;
+      let roll = resultados[indice].roll;
       let casaAnterior = 2;
       let indiceAnterior = tamanho - casaAnterior;
-      let rollAnterior = randomNumber2 //resultados[indiceAnterior].roll;
+      let rollAnterior = resultados[indiceAnterior].roll;
       let cor = resultados[indice].color;
 
       if (roll != rollAnterior) {
@@ -77,7 +85,11 @@ function startRobo() {
       }
     })
     .catch((err) => {
-      console.log(err);
+      if (err.code === 'ECONNABORTED') {
+        console.log('Request Timeout: ' + err.message);
+      } else {
+        console.log(err);
+      }
     });
 }  
 
@@ -155,10 +167,6 @@ function telegram(roll, rollAnterior, cor) {
       break;
   }
 
-  if (roll === rollAnterior) {
-      return startRobo();
-  }
-
   // 0
 
   if (roll === 0 || roll === 1 || roll === 2 || roll === 3 || roll === 4 || roll === 5 || roll === 7 || roll === 14) { 
@@ -171,7 +179,7 @@ function telegram(roll, rollAnterior, cor) {
       }
       setTimeout(() => {
         startRobo()
-      }, 20000);
+      }, 30000);
     }, 5000); 
   }
   
@@ -267,6 +275,7 @@ function processar_Treze(cor, dataTreze) {
             countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
+            return;
           } else if (cor !== "Vermelho" || cor !== 1) {
             bot.telegram.sendMessage(
               tokenChat,
@@ -285,14 +294,16 @@ function processar_Treze(cor, dataTreze) {
                 countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
+                return;
               } else {
                 countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
+                return;
               }
-            }, 31000); //30000
+            }, 36000); //30000
           }
-        }, 31000);
+        }, 36000);
       }
     }, 360000); //360000
 }
@@ -325,6 +336,7 @@ function processar_Doze(cor, dataDoze) {
         countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
+        return;
       } else if (cor !== "Preto" || cor !== 2) {
         bot.telegram.sendMessage(
           tokenChat,
@@ -341,6 +353,7 @@ function processar_Doze(cor, dataDoze) {
             countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
+            return;
           } else if (cor !== "Preto" || cor !== 2) {
             bot.telegram.sendMessage(
               tokenChat,
@@ -357,14 +370,16 @@ function processar_Doze(cor, dataDoze) {
                 countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
+                return;
               } else {
                 countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
+                return;
               }
-            }, 31000);
+            }, 36000);
           }
-        }, 31000);
+        }, 36000);
       }
     }, 390000);
 }
@@ -397,6 +412,7 @@ function processar_Dez(cor, dataDez) {
         countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
+        return;
       } else if (cor !== "Vermelho" || cor !== 1) {
         bot.telegram.sendMessage(
           tokenChat,
@@ -413,6 +429,7 @@ function processar_Dez(cor, dataDez) {
             countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
+            return;
           } else if (cor !== "Vermelho" || cor !== 1) {
             bot.telegram.sendMessage(
               tokenChat,
@@ -429,14 +446,16 @@ function processar_Dez(cor, dataDez) {
                 countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
+                return;
               } else {
                 countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
+                return;
               }
-            }, 31000);
+            }, 36000);
           }
-        }, 31000);
+        }, 36000);
       }
     }, 330000);
 }
@@ -471,6 +490,7 @@ function processar_Nove(cor, dataNove) {
           countWin += 1
           bot.telegram.sendSticker(tokenChat, tokenWin);
           startRobo();
+          return;
         } else if (cor !== "Vermelho" || cor !== 1) {
           bot.telegram.sendMessage(
             tokenChat,
@@ -487,6 +507,7 @@ function processar_Nove(cor, dataNove) {
               countWin += 1
               bot.telegram.sendSticker(tokenChat, tokenWin);
               startRobo();
+              return;
             } else if (cor !== "Vermelho" || cor !== 1) {
               bot.telegram.sendMessage(
                 tokenChat,
@@ -503,14 +524,16 @@ function processar_Nove(cor, dataNove) {
                   countWin += 1
                   bot.telegram.sendSticker(tokenChat, tokenWin);
                   startRobo();
+                  return;
                 } else {
                   countLoss += 1
                   bot.telegram.sendSticker(tokenChat, tokenLoss);
                   startRobo();
+                  return;
                 }
-              }, 31000);
+              }, 36000);
             }
-          }, 31000);
+          }, 36000);
         }
       }, 270000); //255000
 }    
@@ -536,6 +559,7 @@ function processar_Seis(cor, dataSeis) {
       if (cor === 0 || cor === "Branco") {
         countWin += 1
         startRobo();
+        return;
         return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
       }
 
@@ -543,6 +567,7 @@ function processar_Seis(cor, dataSeis) {
         countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
+        return;
       } else if (cor !== "Vermelho" || cor !== 1) {
         bot.telegram.sendMessage(
           tokenChat,
@@ -559,6 +584,7 @@ function processar_Seis(cor, dataSeis) {
             countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
+            return;
           } else if (cor !== "Vermelho" || cor !== 1) {
             bot.telegram.sendMessage(
               tokenChat,
@@ -575,14 +601,16 @@ function processar_Seis(cor, dataSeis) {
                 countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
+                return;
               } else {
                 countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
+                return;
               }
-            }, 31000);
+            }, 36000);
           }
-        }, 31000);
+        }, 36000);
       }
     }, 210000);
 }
@@ -619,6 +647,7 @@ function processar_Oito(cor, dataOito) {
         countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
+        return;
       } else if (cor !== "Preto" || cor !== 2) {
         bot.telegram.sendMessage(
           tokenChat,
@@ -638,6 +667,7 @@ function processar_Oito(cor, dataOito) {
             countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
+            return;
           } else if (cor !== "Preto" || cor !== 2) {
             bot.telegram.sendMessage(
               tokenChat,
@@ -655,14 +685,16 @@ function processar_Oito(cor, dataOito) {
                 countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
+                return;
               } else {
                 countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
+                return;
               }
-            }, 31000);
+            }, 36000);
           }
-        }, 31000);
+        }, 36000);
       }
     }, 270000); //270000
 }
@@ -696,6 +728,7 @@ function processar_Onze(cor, dataOnze) {
         countWin += 1
         bot.telegram.sendSticker(tokenChat, tokenWin);
         startRobo();
+        return;
       } else if (cor !== "Preto" || cor !== 2) {
         bot.telegram.sendMessage(
           tokenChat,
@@ -712,6 +745,7 @@ function processar_Onze(cor, dataOnze) {
             countWin += 1
             bot.telegram.sendSticker(tokenChat, tokenWin);
             startRobo();
+            return;
           } else if (cor !== "Preto" || cor !== 2) {
             bot.telegram.sendMessage(
               tokenChat,
@@ -728,14 +762,16 @@ function processar_Onze(cor, dataOnze) {
                 countWin += 1
                 bot.telegram.sendSticker(tokenChat, tokenWin);
                 startRobo();
+                return;
               } else {
                 countLoss += 1
                 bot.telegram.sendSticker(tokenChat, tokenLoss);
                 startRobo();
+                return;
               }
-            }, 31000);
+            }, 36000);
           }
-        }, 31000);
+        }, 36000);
       }
     }, 330000);
 }
