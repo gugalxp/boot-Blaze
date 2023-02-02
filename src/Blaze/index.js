@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Telegraf } from "telegraf";
 
-const bot = new Telegraf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
 const tokenWin =
   "CAACAgEAAxkBAAIBZmPQgIw04i-VzNmGbon5dR_ffIMnAAKNAgAC2vqYR85jELH6CAEKLQQ";
 const tokenLoss =
@@ -13,16 +13,32 @@ const tokenDezWin =
   "CAACAgEAAxkBAAIBbmPUHl8DMFBVJ2leqbWGbX8V_BLXAALBAQACItOYR1MSdzf5soPrLQQ";
 const tokenTresLoss =
   "CAACAgEAAxkBAAIBb2PUHmJR8cSsn_GVb_fpL7aLIHEzAAKhAQACZeSYR07EHvb3FpgRLQQ";
+const tokenPareDeOperar = "CAACAgEAAxkBAAIBkmPZg5xpeUc3544vxYLoJkCV95IhAALFAQACJ9qRR4B_fxjRTzKmLQQ";  
+
+let rollAtual;
 let corAtual;
-let countWin = 0;
-let countLoss = 0;
-var letContadorGeral = countWin + countLoss;
+let countWin;
+let countLoss;
 axios.defaults.timeout = 1000000;
-let roll;
+let countBrancos;
+var countAcertividade = countWin + countBrancos - countLoss;
+var countGeral = countWin + countBrancos + countLoss;
+let segundoAtualCasaAtual;
+let segundoAtualCasaAtualF;
+let milissegundosSeis;
+let milissegundosTreze;
+let milissegundosDez;
+let milissegundosDoze;
+let milissegundosNove;
+let milissegundosOito;
+let milissegundosOnze;
 
 setInterval(function () {
   if (countWin === 10 && countLoss === 0) {
     bot.telegram.sendSticker(tokenChat, tokenDezWin);
+    setTimeout(() => {
+      bot.telegram.sendSticker(tokenChat, tokenPareDeOperar);
+    }, 1000);
     countWin = 0;
   }
 
@@ -31,13 +47,31 @@ setInterval(function () {
     countLoss = 0;
   }
 
-  if(letContadorGeral === 9) {
-    let porcentagem = (letContadorGeral/10)*100;
-    bot.telegram.sendMessage(tokenChat, `Assertividade em ${porcentagem} por cento.`);
-    letContadorGeral = 0;
+  if(countGeral === 10) {
+    let porcentagem = (countAcertividade/10)*100;
+    bot.telegram.sendMessage(tokenChat, `<b>Play Sinais 💎</b> \n\n ✅ ${countWin} WINS  \n\n ❌ ${countLoss} RED \n\n ⚪️ ${countBrancos} BRANCOS \n\n ${porcentagem}% de Assertividade`,
+    { parse_mode: "HTML" }
+  );
+  countGeral = 0;
+  }
+  if (rollAtual) {
+    segundoAtualCasaAtualF = new Date(segundoAtualCasaAtual);
+   
+    if (typeof segundoAtualCasaAtualF !== 'undefined') {
+      milissegundosSeis = 180000 + 3000 + parseInt(formatDateCasaAtual(segundoAtualCasaAtualF));
+      milissegundosTreze = 360000 + 3000 + parseInt(formatDateCasaAtual(segundoAtualCasaAtualF));
+      milissegundosDez = 300000 + 3000 + parseInt(formatDateCasaAtual(segundoAtualCasaAtualF));
+      milissegundosDoze = 360000 + 3000 + parseInt(formatDateCasaAtual(segundoAtualCasaAtualF));
+      milissegundosNove = 240000 + 3000 + parseInt(formatDateCasaAtual(segundoAtualCasaAtualF));
+      milissegundosOito = 240000 + 3000 + parseInt(formatDateCasaAtual(segundoAtualCasaAtualF));
+      milissegundosOnze = 300000 + 3000 + parseInt(formatDateCasaAtual(segundoAtualCasaAtualF));
+    }
+    console.log(formatDateCasaAtual(segundoAtualCasaAtualF))
+    console.log("Valor em milissegundos do numero: ", milissegundosSeis)
   }
 
 }, 1000);
+
 
 function atualizarCor() {
   axios
@@ -50,8 +84,11 @@ function atualizarCor() {
       let tamanho = resultados.length;
       let casa = 1;
       let indice = tamanho - casa;
+      let roll = resultados[indice].roll;
       let cor = resultados[indice].color;
+      segundoAtualCasaAtual = resultados[indice].created_at;
       corAtual = cor;
+      rollAtual = roll;
     })
     .catch((err) => {
       console.error("O erro da requisição da atualizarCor é: ", err);
@@ -81,7 +118,7 @@ function startRobo() {
       let tamanho = resultados.length;
       let casa = 1;
       let indice = tamanho - casa;
-      roll = resultados[indice].roll;
+      let roll = resultados[indice].roll;
       let casaAnterior = 2;
       let indiceAnterior = tamanho - casaAnterior;
       let rollAnterior = resultados[indiceAnterior].roll;
@@ -112,9 +149,20 @@ function formatDate(date) {
   // const y = zeroFill(date.getFullYear());
   const h = zeroFill(date.getHours());
   const mi = zeroFill(date.getMinutes());
-  const s = zeroFill(date.getSeconds());
+  // const s = zeroFill(date.getSeconds());
 
   return `${h}:${mi}`;
+}
+
+function formatDateCasaAtual(date) {
+  // const d = zeroFill(date.getDate());
+  // const mo = zeroFill(date.getMonth() + 1);
+  // const y = zeroFill(date.getFullYear());
+  // const h = zeroFill(date.getHours());
+  // const mi = zeroFill(date.getMinutes());
+  const s = zeroFill(date.getSeconds());
+
+  return `${s}`;
 }
 
 function telegram(roll, rollAnterior, cor) {
@@ -190,16 +238,9 @@ function telegram(roll, rollAnterior, cor) {
     roll === 7 ||
     roll === 14
   ) {
-    let countZero = 0;
-    const intervalIdZero = setInterval(function () {
-      countZero++;
-      if (countZero === 1) {
-        clearInterval(intervalIdZero);
-      }
       setTimeout(() => {
         startRobo();
       }, 30000);
-    }, 5000);
   }
 
   //TREZE
@@ -248,16 +289,9 @@ startRobo();
 
 function verificarCasaRepetidaGale(roll, rollAnterior) {
   if (roll === rollAnterior) {
-    let countZero = 0;
-    const intervalId = setInterval(function () {
-      countZero++;
-      if (countZero === 1) {
-        clearInterval(intervalId);
-      }
       setTimeout(() => {
         startRobo();
       }, 30000);
-    }, 5000);
   }
 }
 
@@ -266,6 +300,9 @@ function processar_Treze(cor, dataTreze, roll, rollAnterior) {
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
+    }
+    if (roll != rollAtual && typeof rollAtual !== "undefined") {
+      roll = rollAtual;
     }
   }, 1000);
 
@@ -283,20 +320,21 @@ function processar_Treze(cor, dataTreze, roll, rollAnterior) {
 
     if (cor === 0 || cor === "Branco") {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       countWin += 1;
+      countBrancos += 1;
       startRobo();
       return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
     }
     if (cor === "Vermelho" || cor === 1) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       countWin += 1;
       bot.telegram.sendSticker(tokenChat, tokenWin);
@@ -310,16 +348,17 @@ function processar_Treze(cor, dataTreze, roll, rollAnterior) {
 
         if (cor === 0 || cor === "Branco") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
+          countBrancos += 1;
           countWin += 1;
           startRobo();
           return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
         }
         if (cor === "Vermelho") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           countWin += 1;
@@ -328,7 +367,7 @@ function processar_Treze(cor, dataTreze, roll, rollAnterior) {
           return;
         } else if (cor !== "Vermelho" || cor !== 1) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
@@ -338,17 +377,18 @@ function processar_Treze(cor, dataTreze, roll, rollAnterior) {
             console.log("COR verificação SINAL G2", cor);
             if (cor === 0 || cor === "Branco") {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
-              startRobo();
+              countBrancos += 1;
               countWin += 1;
+              startRobo();
               return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
             }
 
             if (cor === "Vermelho" || cor === 1) {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
               countWin += 1;
@@ -365,7 +405,7 @@ function processar_Treze(cor, dataTreze, roll, rollAnterior) {
         }
       }, 35000);
     }
-  }, 402000); //402000
+  }, milissegundosTreze); //402000
 }
 
 function processar_Doze(cor, dataDoze, roll, rollAnterior) {
@@ -373,6 +413,9 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
+    }
+    if (roll != rollAtual && typeof rollAtual !== "undefined") {
+      roll = rollAtual;
     }
   }, 1000);
 
@@ -390,9 +433,10 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
   setTimeout(() => {
     if (cor === 0 || cor === "Branco") {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       startRobo();
       return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
@@ -400,7 +444,7 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
 
     if (cor === "Preto" || cor === 2) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       countWin += 1;
@@ -409,7 +453,7 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
       return;
     } else if (cor !== "Preto" || cor !== 2) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       bot.telegram.sendMessage(tokenChat, `<b>❇️ 1º GALE</b>`, {
@@ -418,16 +462,17 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
+          countBrancos += 1;
           countWin += 1;
           startRobo();
           return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
         }
         if (cor === "Preto" || cor === 2) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           countWin += 1;
@@ -436,7 +481,7 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
           return;
         } else if (cor !== "Preto" || cor !== 2) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
@@ -445,16 +490,17 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
           setTimeout(() => {
             if (cor === 0 || cor === "Branco") {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
+              countBrancos += 1;
               countWin += 1;
               startRobo();
               return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
             }
             if (cor === "Preto" || cor === 2) {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
               countWin += 1;
@@ -471,7 +517,8 @@ function processar_Doze(cor, dataDoze, roll, rollAnterior) {
         }
       }, 35000);
     }
-  }, 382000);
+  }, milissegundosDoze
+  );
 }
 
 function processar_Dez(cor, dataDez, roll, rollAnterior) {
@@ -479,6 +526,9 @@ function processar_Dez(cor, dataDez, roll, rollAnterior) {
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
+    }
+    if (roll != rollAtual && typeof rollAtual !== "undefined") {
+      roll = rollAtual;
     }
   }, 1000);
 
@@ -496,9 +546,10 @@ function processar_Dez(cor, dataDez, roll, rollAnterior) {
   setTimeout(() => {
     if (cor === 0 || cor === "Branco") {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       startRobo();
       return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
@@ -506,16 +557,17 @@ function processar_Dez(cor, dataDez, roll, rollAnterior) {
 
     if (cor === "Vermelho" || cor === 1) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       bot.telegram.sendSticker(tokenChat, tokenWin);
       startRobo();
       return;
     } else if (cor !== "Vermelho" || cor !== 1) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
 
@@ -526,16 +578,17 @@ function processar_Dez(cor, dataDez, roll, rollAnterior) {
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
+          countBrancos += 1;
           countWin += 1;
           startRobo();
           return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
         }
         if (cor === "Vermelho" || cor === 1) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           countWin += 1;
@@ -544,7 +597,7 @@ function processar_Dez(cor, dataDez, roll, rollAnterior) {
           return;
         } else if (cor !== "Vermelho" || cor !== 1) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
@@ -553,16 +606,17 @@ function processar_Dez(cor, dataDez, roll, rollAnterior) {
           setTimeout(() => {
             if (cor === 0 || cor === "Branco") {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
+              countBrancos += 1;
               countWin += 1;
               startRobo();
               return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
             }
             if (cor === "Vermelho" || cor === 1) {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
               countWin += 1;
@@ -579,13 +633,17 @@ function processar_Dez(cor, dataDez, roll, rollAnterior) {
         }
       }, 35000);
     }
-  }, 325000);
+  }, milissegundosDez
+  );
 }
 
 function processar_Nove(cor, dataNove, roll, rollAnterior) {
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
+    }
+    if (roll != rollAtual && typeof rollAtual !== "undefined") {
+      roll = rollAtual;
     }
   }, 1000);
 
@@ -605,9 +663,10 @@ function processar_Nove(cor, dataNove, roll, rollAnterior) {
   setTimeout(() => {
     if (cor === 0 || cor === "Branco") {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       startRobo();
       return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
@@ -615,16 +674,17 @@ function processar_Nove(cor, dataNove, roll, rollAnterior) {
 
     if (cor === "Vermelho" || cor === 1) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       bot.telegram.sendSticker(tokenChat, tokenWin);
       startRobo();
       return;
     } else if (cor !== "Vermelho" || cor !== 1) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       bot.telegram.sendMessage(tokenChat, `<b>❇️ 1º GALE</b>`, {
@@ -633,25 +693,27 @@ function processar_Nove(cor, dataNove, roll, rollAnterior) {
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
+          countBrancos += 1;
           countWin += 1;
           startRobo();
           return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
         }
         if (cor === "Vermelho" || cor === 1) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
+          countBrancos += 1;
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
           startRobo();
           return;
         } else if (cor !== "Vermelho" || cor !== 1) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           bot.telegram.sendMessage(tokenChat, `<b>❇️ 2º GALE</b>`, {
@@ -660,16 +722,17 @@ function processar_Nove(cor, dataNove, roll, rollAnterior) {
           setTimeout(() => {
             if (cor === 0 || cor === "Branco") {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
+              countBrancos += 1;
               countWin += 1;
               startRobo();
               return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
             }
             if (cor === "Vermelho" || cor === 1) {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
               countWin += 1;
@@ -686,7 +749,8 @@ function processar_Nove(cor, dataNove, roll, rollAnterior) {
         }
       }, 35000);
     }
-  }, 257000); //257000
+  }, milissegundosNove
+  ); //247000
 }
 
 function processar_Seis(cor, dataSeis, roll, rollAnterior) {
@@ -694,6 +758,9 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
+    }
+    if (roll != rollAtual && typeof rollAtual !== "undefined") {
+      roll = rollAtual;
     }
   }, 1000);
 
@@ -711,9 +778,10 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
   setTimeout(() => {
     if (cor === 0 || cor === "Branco") {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       startRobo();
       return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
@@ -721,7 +789,7 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
 
     if (cor === "Vermelho" || cor === 1) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
 
@@ -731,7 +799,7 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
       return;
     } else if (cor !== "Vermelho" || cor !== 1) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
 
@@ -741,17 +809,17 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
-
+          countBrancos += 1;
           countWin += 1;
           startRobo();
           return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
         }
         if (cor === "Vermelho" || cor === 1) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
 
@@ -761,7 +829,7 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
           return;
         } else if (cor !== "Vermelho" || cor !== 1) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
 
@@ -771,17 +839,17 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
           setTimeout(() => {
             if (cor === 0 || cor === "Branco") {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
-
+              countBrancos += 1;
               countWin += 1;
               startRobo();
               return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
             }
             if (cor === "Vermelho" || cor === 1) {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
 
@@ -799,7 +867,8 @@ function processar_Seis(cor, dataSeis, roll, rollAnterior) {
         }
       }, 35000);
     }
-  }, 202000);
+  }, milissegundosSeis
+  );
 }
 
 function processar_Oito(cor, dataOito, roll, rollAnterior) {
@@ -807,6 +876,9 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
+    }
+    if (roll != rollAtual && typeof rollAtual !== "undefined") {
+      roll = rollAtual;
     }
   }, 1000);
 
@@ -824,9 +896,10 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
   setTimeout(() => {
     if (cor === 0 || cor === "Branco") {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       startRobo();
       return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
@@ -836,7 +909,7 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
 
     if (cor === "Preto" || cor === 2) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       countWin += 1;
@@ -845,7 +918,7 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
       return;
     } else if (cor !== "Preto" || cor !== 2) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
@@ -856,9 +929,10 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
 
         if (cor === 0 || cor === "Branco") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
+          countBrancos += 1;
           countWin += 1;
           startRobo();
           return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
@@ -866,7 +940,7 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
 
         if (cor === "Preto" || cor === 2) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           countWin += 1;
@@ -875,7 +949,7 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
           return;
         } else if (cor !== "Preto" || cor !== 2) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
@@ -885,16 +959,17 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
             console.log("COR verificação SINAL G2", cor);
             if (cor === 0 || cor === "Branco") {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
+              countBrancos += 1;
               countWin += 1;
               startRobo();
               return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
             }
             if (cor === "Preto" || cor === 2) {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
               countWin += 1;
@@ -911,7 +986,8 @@ function processar_Oito(cor, dataOito, roll, rollAnterior) {
         }
       }, 35000);
     }
-  }, 267000); //262000
+  }, milissegundosOito
+  ); //262000
 }
 
 function processar_Onze(cor, dataOnze, roll, rollAnterior) {
@@ -919,6 +995,9 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
   setInterval(() => {
     if (cor !== corAtual && typeof corAtual !== "undefined") {
       cor = corAtual;
+    }
+    if (roll != rollAtual && typeof rollAtual !== "undefined") {
+      roll = rollAtual;
     }
   }, 1000);
 
@@ -936,9 +1015,10 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
   setTimeout(() => {
     if (cor === 0 || cor === "Branco") {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
+      countBrancos += 1;
       countWin += 1;
       startRobo();
       return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
@@ -946,7 +1026,7 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
 
     if (cor === "Preto" || cor === 2) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       countWin += 1;
@@ -955,7 +1035,7 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
       return;
     } else if (cor !== "Preto" || cor !== 2) {
       if (roll === rollAnterior) {
-        verificarCasaRepetidaGale(roll, rollAnterior);
+        return verificarCasaRepetidaGale(roll, rollAnterior);
       }
       console.log("O numero foi computado: ", roll);
       bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
@@ -964,16 +1044,17 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
+          countBrancos += 1;
           countWin += 1;
           startRobo();
           return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
         }
         if (cor === "Preto" || cor === 2) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           countWin += 1;
@@ -982,7 +1063,7 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
           return;
         } else if (cor !== "Preto" || cor !== 2) {
           if (roll === rollAnterior) {
-            verificarCasaRepetidaGale(roll, rollAnterior);
+            return verificarCasaRepetidaGale(roll, rollAnterior);
           }
           console.log("O numero foi computado: ", roll);
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
@@ -991,16 +1072,17 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
           setTimeout(() => {
             if (cor === 0 || cor === "Branco") {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
+              countBrancos += 1;
               countWin += 1;
               startRobo();
               return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
             }
             if (cor === "Preto" || cor === 2) {
               if (roll === rollAnterior) {
-                verificarCasaRepetidaGale(roll, rollAnterior);
+                return verificarCasaRepetidaGale(roll, rollAnterior);
               }
               console.log("O numero foi computado: ", roll);
               countWin += 1;
@@ -1017,28 +1099,7 @@ function processar_Onze(cor, dataOnze, roll, rollAnterior) {
         }
       }, 35000);
     }
-  }, 330000);
+  }, milissegundosOnze
+  );
 }
 
-// bot.telegram.sendPhoto(tokenChat, "SINAL VENCEDOR TESTE");
-
-// if (cor == "Vermelho") {
-//     bot.telegram.sendMessage(-1001677942242, "VERMELHOOO");
-// }
-
-// if (cor == "Preto") {
-// }
-
-// if (cor == "Branco") {
-//     bot.telegram.sendMessage(-1001677942242, "BRANCOOOO");
-// }
-
-// setInterval(() => {
-// }, 5000)
-
-// // bot.telegram.sendMessage(1159964065, "bora ganhar dinheiro");
-// // bot.start((ctx) => ctx.reply('Welcome'));
-// // bot.help((ctx) => ctx.reply('Send me a sticker'));
-// // bot.on('sticker', (ctx) => ctx.reply('👍'));
-// // bot.hears('hi', (ctx) => ctx.reply('Hey there'));
-// // bot.launch();
