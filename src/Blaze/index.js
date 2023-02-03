@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Telegraf } from "telegraf";
 
-const bot = new Telegraf("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
 const tokenWin =
   "CAACAgEAAxkBAAIBZmPQgIw04i-VzNmGbon5dR_ffIMnAAKNAgAC2vqYR85jELH6CAEKLQQ";
 const tokenLoss =
@@ -17,7 +17,13 @@ const tokenPareDeOperar =
   "CAACAgEAAxkBAAIBkmPZg5xpeUc3544vxYLoJkCV95IhAALFAQACJ9qRR4B_fxjRTzKmLQQ";
 
 let casa = [];
-let idInterval;
+let idIntervalDoze;
+let idIntervalTreze;
+let idIntervalDez;
+let idIntervalOnze;
+let idIntervalNove;
+let idIntervalSeis;
+let idIntervalOito;
 let rollAtual;
 let idAtual;
 let countWin;
@@ -76,7 +82,7 @@ function atualizarCor() {
 
 setInterval(() => {
   atualizarCor();
-}, 3000);
+}, 5000);
 
 function startRobo() {
   axios
@@ -90,73 +96,73 @@ function startRobo() {
       let roll = results.roll;
       casaId = results.id;
 
-      return telegram((roll = 13), cor, casaId);
+      return telegram(roll, cor, casaId);
     })
     .catch((err) => {
       console.error("O erro da requisição da startRobo é: ", err);
     });
 }
 
-function zeroFill(n) {
-  return n < 9 ? `0${n}` : `${n}`;
-}
+// function zeroFill(n) {
+//   return n < 9 ? `0${n}` : `${n}`;
+// }
 
-function formatDate(date) {
-  // const d = zeroFill(date.getDate());
-  // const mo = zeroFill(date.getMonth() + 1);
-  // const y = zeroFill(date.getFullYear());
-  const h = zeroFill(date.getHours());
-  const mi = zeroFill(date.getMinutes());
-  // const s = zeroFill(date.getSeconds());
+// function formatDate(date) {
+//   // const d = zeroFill(date.getDate());
+//   // const mo = zeroFill(date.getMonth() + 1);
+//   // const y = zeroFill(date.getFullYear());
+//   const h = zeroFill(date.getHours());
+//   const mi = zeroFill(date.getMinutes());
+//   // const s = zeroFill(date.getSeconds());
 
-  return `${h}:${mi}`;
-}
+//   return `${h}:${mi}`;
+// }
 
 function telegram(roll, cor, casaId) {
   console.log("local Atual", roll);
   console.log("COR", cor);
 
-  //ONZE
-  const dataOnze = new Date();
-  dataOnze.setSeconds(dataOnze.getSeconds() + 0);
-  dataOnze.setMinutes(dataOnze.getMinutes() + 5);
-  dataOnze.setHours(dataOnze.getHours() + 0);
+  // //ONZE
+  // const dataOnze = new Date();
+  // dataOnze.setSeconds(dataOnze.getSeconds() + 0);
+  // dataOnze.setMinutes(dataOnze.getMinutes() + 5);
+  // dataOnze.setHours(dataOnze.getHours() + 0);
 
-  //OITO
-  const dataOito = new Date();
-  dataOito.setSeconds(dataOito.getSeconds() + 0);
-  dataOito.setMinutes(dataOito.getMinutes() + 4);
-  dataOito.setHours(dataOito.getHours() + 0);
+  // //OITO
+  // const dataOito = new Date();
+  // dataOito.setSeconds(dataOito.getSeconds() + 0);
+  // dataOito.setMinutes(dataOito.getMinutes() + 4);
+  // dataOito.setHours(dataOito.getHours() + 0);
 
-  //NOVE
-  const dataNove = new Date();
-  dataNove.setSeconds(dataNove.getSeconds() + 0);
-  dataNove.setMinutes(dataNove.getMinutes() + 4);
-  dataNove.setHours(dataNove.getHours() + 0);
+  // //NOVE
+  // const dataNove = new Date();
+  // dataNove.setSeconds(dataNove.getSeconds() + 0);
+  // dataNove.setMinutes(dataNove.getMinutes() + 4);
+  // dataNove.setHours(dataNove.getHours() + 0);
 
-  //DEZ
-  const dataDez = new Date();
-  dataDez.setSeconds(dataDez.getSeconds() + 0);
-  dataDez.setMinutes(dataDez.getMinutes() + 5);
-  dataDez.setHours(dataDez.getHours() + 0);
+  // //DEZ
+  // const dataDez = new Date();
+  // dataDez.setSeconds(dataDez.getSeconds() + 0);
+  // dataDez.setMinutes(dataDez.getMinutes() + 5);
+  // dataDez.setHours(dataDez.getHours() + 0);
 
-  //DOZE
-  const dataDoze = new Date();
-  dataDoze.setSeconds(dataDoze.getSeconds() + 0);
-  dataDoze.setMinutes(dataDoze.getMinutes() + 6);
-  dataDoze.setHours(dataDoze.getHours() + 0);
+  // //DOZE
+  // const dataDoze = new Date();
+  // dataDoze.setSeconds(dataDoze.getSeconds() + 0);
+  // dataDoze.setMinutes(dataDoze.getMinutes() + 6);
+  // dataDoze.setHours(dataDoze.getHours() + 0);
 
-  //TREZE
-  const dataTreze = new Date();
-  dataTreze.setSeconds(dataTreze.getSeconds() + 0);
-  dataTreze.setMinutes(dataTreze.getMinutes() + 6);
-  dataTreze.setHours(dataTreze.getHours() + 0);
+  // //TREZE
+  // const dataTreze = new Date();
+  // dataTreze.setSeconds(dataTreze.getSeconds() + 0);
+  // dataTreze.setMinutes(dataTreze.getMinutes() + 6);
+  // dataTreze.setHours(dataTreze.getHours() + 0);
 
-  //SEIS
-  const dataSeis = new Date();
-  dataSeis.setSeconds(dataSeis.getSeconds() + 0);
-  dataSeis.setMinutes(dataSeis.getMinutes() + 3);
-  dataSeis.setHours(dataSeis.getHours() + 0);
+  // //SEIS
+  // const dataSeis = new Date();
+  // dataSeis.setSeconds(dataSeis.getSeconds() + 0);
+  // dataSeis.setMinutes(dataSeis.getMinutes() + 3);
+  // dataSeis.setHours(dataSeis.getHours() + 0);
 
   switch (cor) {
     case 1:
@@ -187,58 +193,64 @@ function telegram(roll, cor, casaId) {
     }, 30000);
   }
 
+  if (roll === null) {
+    setTimeout(() => {
+      startRobo();
+    }, 15000);
+  }
+
   //TREZE
 
   if (roll === 13) {
-    processar_Treze(cor, dataTreze, roll, casaId);
+    processar_Treze(cor, roll, casaId);
   }
 
   //DOZE
 
   if (roll === 12) {
-    processar_Doze(cor, dataDoze, roll, casaId);
+    processar_Doze(cor, roll, casaId);
   }
 
   //DEZ
 
   if (roll === 10) {
-    processar_Dez(cor, dataDez, roll, casaId);
+    processar_Dez(cor, roll, casaId);
   }
 
   //NOVE
   if (roll === 9) {
-    processar_Nove(cor, dataNove, roll, casaId);
+    processar_Nove(cor, roll, casaId);
   }
 
   //SEIS
 
   if (roll === 6) {
-    processar_Seis(cor, dataSeis, roll, casaId);
+    processar_Seis(cor, roll, casaId);
   }
 
   //OITO
 
   if (roll === 8) {
-    processar_Oito(cor, dataOito, roll, casaId);
+    processar_Oito(cor, roll, casaId);
   }
 
   //ONZE
 
   if (roll === 11) {
-    processar_Onze(cor, dataOnze, roll, casaId);
+    processar_Onze(cor, roll, casaId);
   }
 }
 
 startRobo();
 
-function processar_Treze(cor, dataTreze, roll, casaId) {
+function processar_Treze(cor, dataDoze, roll, casaId) {
   //TREEEEEEZE 13
   console.log(cor);
   console.log(roll);
   console.log(casaId);
-  var gale = 0;
+  let gale = 0;
 
-  idInterval = setInterval(() => {
+  idIntervalTreze = setInterval(() => {
     if (roll != rollAtual && typeof rollAtual !== "undefined") {
       roll = rollAtual;
     }
@@ -264,14 +276,17 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
-  bot.telegram.sendMessage(
-    tokenChat,
-    `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-      dataTreze
-    )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-    { parse_mode: "HTML" }
-  );
-
+  let mensagemAnterior = setInterval(() => {
+    if (casa.length === 12 && cor != null && roll != null) {
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+      clearInterval(mensagemAnterior);
+    }  
+  }, 3000);
+  
   let intervalId1 = setInterval(() => {
     if (casa.length === 13 && cor !== null) {
       console.log(casa);
@@ -284,7 +299,7 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
           startRobo();
           casa.length = 0;
           clearInterval(intervalId1);
-          clearInterval(idInterval);
+          clearInterval(idIntervalTreze);
           return;
         }
         if (cor === "Vermelho" || cor === 1) {
@@ -293,7 +308,7 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
           casa.length = 0;
           startRobo();
           clearInterval(intervalId1);
-          clearInterval(idInterval);
+          clearInterval(idIntervalTreze);
           return;
         } else {
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
@@ -305,7 +320,7 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
       }, 9000);
       clearInterval(intervalId1);
     }
-  }, 1000);
+  }, 3000);
 
   let intervalId2 = setInterval(() => {
     if (casa.length === 14 && gale === 1 && cor !== null) {
@@ -319,17 +334,17 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
           casa.length = 0;
           startRobo();
           clearInterval(intervalId2);
-          clearInterval(idInterval);
+          clearInterval(idIntervalTreze);
           return;
         }
-        if (cor === "Vermelho") {
+        if (cor === "Vermelho" || cor === 1) {
           console.log("COR verificação SINAL palpite", cor);
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
           casa.length = 0;
           startRobo();
           clearInterval(intervalId2);
-          clearInterval(idInterval);
+          clearInterval(idIntervalTreze);
           return;
         } else {
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
@@ -341,7 +356,7 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
       }, 9000);
       clearInterval(intervalId2);
     }
-  }, 1000);
+  }, 3000);
 
   let intervalId3 = setInterval(() => {
     if (casa.length === 15 && gale === 2 && cor !== null) {
@@ -354,9 +369,10 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWinBranco);
           casa.length = 0;
+          gale = 0;
           startRobo();
           clearInterval(intervalId3);
-          clearInterval(idInterval);
+          clearInterval(idIntervalTreze);
           return;
         }
 
@@ -367,582 +383,969 @@ function processar_Treze(cor, dataTreze, roll, casaId) {
           casa.length = 0;
           startRobo();
           clearInterval(intervalId3);
-          clearInterval(idInterval);
+          clearInterval(idIntervalTreze);
           return;
         } else {
           countLoss += 1;
           bot.telegram.sendSticker(tokenChat, tokenLoss);
           casa.length = 0;
+          gale = 0;
           startRobo();
           clearInterval(intervalId3);
-          clearInterval(idInterval);
+          clearInterval(idIntervalTreze);
           return;
         }
       }, 9000);
       clearInterval(intervalId3);
     }
-  }, 1000);
+  }, 3000);
 }
 
 function processar_Doze(cor, dataDoze, roll, casaId) {
-  //     //DOZZZZZZZE 12
-  setInterval(() => {
-    if (cor !== corAtual && typeof corAtual !== "undefined") {
-      cor = corAtual;
-    }
+  //DOOOOOOOOOOOOZE 12
+  console.log(cor);
+  console.log(roll);
+  console.log(casaId);
+  let gale = 0;
+
+  idIntervalDoze = setInterval(() => {
     if (roll != rollAtual && typeof rollAtual !== "undefined") {
       roll = rollAtual;
     }
+
     if (casaId != idAtual && typeof idAtual !== "undefined") {
       casaId = idAtual;
     }
-  }, 1000);
 
-  console.log("COR ATUALIZADA TREZE", cor);
-
-  console.log("PALPITE DE SINAL");
-  bot.telegram.sendMessage(
-    tokenChat,
-    `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-      dataDoze
-    )} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-    { parse_mode: "HTML" }
-  );
-
-  setTimeout(() => {
-    if (cor === 0 || cor === "Branco") {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      startRobo();
-      return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+    if (cor != corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+      console.log("cor atualizada", cor);
     }
 
-    if (cor === "Preto" || cor === 2) {
-      console.log("O numero foi computado: ", roll);
-      countWin += 1;
-      bot.telegram.sendSticker(tokenChat, tokenWin);
-      startRobo();
-      return;
-    } else if (cor !== "Preto" || cor !== 2) {
-      console.log("O numero foi computado: ", roll);
-      bot.telegram.sendMessage(tokenChat, `<b>❇️ 1º GALE</b>`, {
-        parse_mode: "HTML",
-      });
+    if (typeof idAtual !== "undefined") {
+      if (casa.includes(idAtual)) {
+        console.log(`O elemento ${idAtual} já existe no array.`);
+      } else {
+        casa.push(idAtual);
+        console.log(casa);
+        console.log(`O elemento ${idAtual} foi adicionado ao array.`);
+      }
+    }
+  }, 1500);
+
+  console.log("PALPITE DE SINAL");
+  let mensagemAnterior = setInterval(() => {
+    if (casa.length === 11 && cor != null && roll != null) {
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+      clearInterval(mensagemAnterior);
+    }  
+  }, 3000);
+
+  let intervalId1 = setInterval(() => {
+    if (casa.length === 12 && cor !== null) {
+      console.log(casa);
+      console.log("processo 1", cor);
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
-          console.log("O numero foi computado: ", roll);
-          countBrancos += 1;
           countWin += 1;
+          countBrancos += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
           startRobo();
-          return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          clearInterval(intervalId1);
+          clearInterval(idIntervalDoze);
+          return;
         }
         if (cor === "Preto" || cor === 2) {
-          console.log("O numero foi computado: ", roll);
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
           startRobo();
+          clearInterval(intervalId1);
+          clearInterval(idIntervalDoze);
           return;
-        } else if (cor !== "Preto" || cor !== 2) {
-          console.log("O numero foi computado: ", roll);
+        } else {
+          bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
+            parse_mode: "HTML",
+          });
+          gale += 1;
+          clearInterval(intervalId1);
+        }
+      }, 9000);
+      clearInterval(intervalId1);
+    }
+  }, 3000);
+
+  let intervalId2 = setInterval(() => {
+    if (casa.length === 13 && gale === 1 && cor !== null) {
+      console.log("processo 2", cor);
+      setTimeout(() => {
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalDoze);
+          return;
+        }
+        if (cor === "Preto" || cor === 2) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalDoze);
+          return;
+        } else {
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
             parse_mode: "HTML",
           });
-          setTimeout(() => {
-            if (cor === 0 || cor === "Branco") {
-              console.log("O numero foi computado: ", roll);
-              countBrancos += 1;
-              countWin += 1;
-              startRobo();
-              return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-            }
-            if (cor === "Preto" || cor === 2) {
-              console.log("O numero foi computado: ", roll);
-              countWin += 1;
-              bot.telegram.sendSticker(tokenChat, tokenWin);
-              startRobo();
-              return;
-            } else {
-              countLoss += 1;
-              bot.telegram.sendSticker(tokenChat, tokenLoss);
-              startRobo();
-              return;
-            }
-          }, 35000);
+          gale += 1;
+          clearInterval(intervalId2);
         }
-      }, 35000);
+      }, 9000);
+      clearInterval(intervalId2);
     }
-  }, 390000);
+  }, 3000);
+
+  let intervalId3 = setInterval(() => {
+    if (casa.length === 14 && gale === 2 && cor !== null) {
+      console.log("processo 3", cor);
+      setTimeout(() => {
+        console.log("COR verificação SINAL palpite", cor);
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalDoze);
+          return;
+        }
+
+        if (cor === "Preto" || cor === 2) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalDoze);
+          return;
+        } else {
+          countLoss += 1;
+          bot.telegram.sendSticker(tokenChat, tokenLoss);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalDoze);
+          return;
+        }
+      }, 9000);
+      clearInterval(intervalId3);
+    }
+  }, 3000);
 }
 
 function processar_Dez(cor, dataDez, roll, casaId) {
-  //     //DEZZZZZZZ 10
-  setInterval(() => {
-    if (cor !== corAtual && typeof corAtual !== "undefined") {
-      cor = corAtual;
-    }
+  //DEEEEEEEEZ 10
+  console.log(cor);
+  console.log(roll);
+  console.log(casaId);
+  let gale = 0;
+
+  idIntervalDez = setInterval(() => {
     if (roll != rollAtual && typeof rollAtual !== "undefined") {
       roll = rollAtual;
     }
+
     if (casaId != idAtual && typeof idAtual !== "undefined") {
       casaId = idAtual;
     }
-  }, 1000);
 
-  console.log("COR ATUALIZADA TREZE", cor);
-
-  console.log("PALPITE DE SINAL");
-  bot.telegram.sendMessage(
-    tokenChat,
-    `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-      dataDez
-    )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-    { parse_mode: "HTML" }
-  );
-
-  setTimeout(() => {
-    if (cor === 0 || cor === "Branco") {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      startRobo();
-      return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+    if (cor != corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+      console.log("cor atualizada", cor);
     }
 
-    if (cor === "Vermelho" || cor === 1) {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      bot.telegram.sendSticker(tokenChat, tokenWin);
-      startRobo();
-      return;
-    } else if (cor !== "Vermelho" || cor !== 1) {
-      console.log("O numero foi computado: ", roll);
+    if (typeof idAtual !== "undefined") {
+      if (casa.includes(idAtual)) {
+        console.log(`O elemento ${idAtual} já existe no array.`);
+      } else {
+        casa.push(idAtual);
+        console.log(casa);
+        console.log(`O elemento ${idAtual} foi adicionado ao array.`);
+      }
+    }
+  }, 1500);
 
-      bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
-        parse_mode: "HTML",
-      });
+  console.log("PALPITE DE SINAL");
+  let mensagemAnterior = setInterval(() => {
+    if (casa.length === 9 && cor != null && roll != null) {
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+      clearInterval(mensagemAnterior);
+    }  
+  }, 3000);
 
+  let intervalId1 = setInterval(() => {
+    if (casa.length === 10 && cor !== null) {
+      console.log(casa);
+      console.log("processo 1", cor);
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
-          console.log("O numero foi computado: ", roll);
-          countBrancos += 1;
           countWin += 1;
+          countBrancos += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
           startRobo();
-          return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          clearInterval(intervalId1);
+          clearInterval(idIntervalDez);
+          return;
         }
         if (cor === "Vermelho" || cor === 1) {
-          console.log("O numero foi computado: ", roll);
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
           startRobo();
+          clearInterval(intervalId1);
+          clearInterval(idIntervalDez);
           return;
-        } else if (cor !== "Vermelho" || cor !== 1) {
-          console.log("O numero foi computado: ", roll);
+        } else {
+          bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
+            parse_mode: "HTML",
+          });
+          gale += 1;
+          clearInterval(intervalId1);
+        }
+      }, 9000);
+      clearInterval(intervalId1);
+    }
+  }, 3000);
+
+  let intervalId2 = setInterval(() => {
+    if (casa.length === 11 && gale === 1 && cor !== null) {
+      console.log("processo 2", cor);
+      setTimeout(() => {
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalDez);
+          return;
+        }
+        if (cor === "Vermelho" || cor === 1) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalDez);
+          return;
+        } else {
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
             parse_mode: "HTML",
           });
-          setTimeout(() => {
-            if (cor === 0 || cor === "Branco") {
-              console.log("O numero foi computado: ", roll);
-              countBrancos += 1;
-              countWin += 1;
-              startRobo();
-              return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-            }
-            if (cor === "Vermelho" || cor === 1) {
-              console.log("O numero foi computado: ", roll);
-              countWin += 1;
-              bot.telegram.sendSticker(tokenChat, tokenWin);
-              startRobo();
-              return;
-            } else {
-              countLoss += 1;
-              bot.telegram.sendSticker(tokenChat, tokenLoss);
-              startRobo();
-              return;
-            }
-          }, 35000);
+          gale += 1;
+          clearInterval(intervalId2);
         }
-      }, 35000);
+      }, 9000);
+      clearInterval(intervalId2);
     }
-  }, 325000);
+  }, 3000);
+
+  let intervalId3 = setInterval(() => {
+    if (casa.length === 12 && gale === 2 && cor !== null) {
+      console.log("processo 3", cor);
+      setTimeout(() => {
+        console.log("COR verificação SINAL palpite", cor);
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalDez);
+          return;
+        }
+
+        if (cor === "Vermelho" || cor === 1) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalDez);
+          return;
+        } else {
+          countLoss += 1;
+          bot.telegram.sendSticker(tokenChat, tokenLoss);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalDez);
+          return;
+        }
+      }, 9000);
+      clearInterval(intervalId3);
+    }
+  }, 3000);
 }
 
 function processar_Nove(cor, dataNove, roll, casaId) {
-  setInterval(() => {
-    if (cor !== corAtual && typeof corAtual !== "undefined") {
-      cor = corAtual;
-    }
+  //NOVEEEEEEEEE 9
+  console.log(cor);
+  console.log(roll);
+  console.log(casaId);
+  let gale = 0;
+
+  idIntervalNove = setInterval(() => {
     if (roll != rollAtual && typeof rollAtual !== "undefined") {
       roll = rollAtual;
     }
+
     if (casaId != idAtual && typeof idAtual !== "undefined") {
       casaId = idAtual;
     }
-  }, 1000);
 
-  console.log("COR ATUALIZADA TREZE", cor);
+    if (cor != corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+      console.log("cor atualizada", cor);
+    }
 
-  //NOVEEEEEEEEEEEE 9
+    if (typeof idAtual !== "undefined") {
+      if (casa.includes(idAtual)) {
+        console.log(`O elemento ${idAtual} já existe no array.`);
+      } else {
+        casa.push(idAtual);
+        console.log(casa);
+        console.log(`O elemento ${idAtual} foi adicionado ao array.`);
+      }
+    }
+  }, 1500);
 
   console.log("PALPITE DE SINAL");
-  bot.telegram.sendMessage(
-    tokenChat,
-    `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-      dataNove
-    )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-    { parse_mode: "HTML" }
-  );
+  let mensagemAnterior = setInterval(() => {
+    if (casa.length === 8 && cor != null && roll != null) {
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+      clearInterval(mensagemAnterior);
+    }  
+  }, 3000);
 
-  setTimeout(() => {
-    if (cor === 0 || cor === "Branco") {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      startRobo();
-      return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-    }
-
-    if (cor === "Vermelho" || cor === 1) {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      bot.telegram.sendSticker(tokenChat, tokenWin);
-      startRobo();
-      return;
-    } else if (cor !== "Vermelho" || cor !== 1) {
-      console.log("O numero foi computado: ", roll);
-      bot.telegram.sendMessage(tokenChat, `<b>❇️ 1º GALE</b>`, {
-        parse_mode: "HTML",
-      });
+  let intervalId1 = setInterval(() => {
+    if (casa.length === 9 && cor !== null) {
+      console.log(casa);
+      console.log("processo 1", cor);
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
-          console.log("O numero foi computado: ", roll);
-          countBrancos += 1;
           countWin += 1;
+          countBrancos += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
           startRobo();
-          return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          clearInterval(intervalId1);
+          clearInterval(idIntervalNove);
+          return;
         }
         if (cor === "Vermelho" || cor === 1) {
-          console.log("O numero foi computado: ", roll);
-          countBrancos += 1;
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
           startRobo();
+          clearInterval(intervalId1);
+          clearInterval(idIntervalNove);
           return;
-        } else if (cor !== "Vermelho" || cor !== 1) {
-          console.log("O numero foi computado: ", roll);
-          bot.telegram.sendMessage(tokenChat, `<b>❇️ 2º GALE</b>`, {
+        } else {
+          bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
             parse_mode: "HTML",
           });
-          setTimeout(() => {
-            if (cor === 0 || cor === "Branco") {
-              console.log("O numero foi computado: ", roll);
-              countBrancos += 1;
-              countWin += 1;
-              startRobo();
-              return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-            }
-            if (cor === "Vermelho" || cor === 1) {
-              console.log("O numero foi computado: ", roll);
-              countWin += 1;
-              bot.telegram.sendSticker(tokenChat, tokenWin);
-              startRobo();
-              return;
-            } else {
-              countLoss += 1;
-              bot.telegram.sendSticker(tokenChat, tokenLoss);
-              startRobo();
-              return;
-            }
-          }, 35000);
+          gale += 1;
+          clearInterval(intervalId1);
         }
-      }, 35000);
+      }, 9000);
+      clearInterval(intervalId1);
     }
-  }, 247000); //247000
+  }, 3000);
+
+  let intervalId2 = setInterval(() => {
+    if (casa.length === 10 && gale === 1 && cor !== null) {
+      console.log("processo 2", cor);
+      setTimeout(() => {
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalNove);
+          return;
+        }
+        if (cor === "Vermelho" || cor === 1) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalNove);
+          return;
+        } else {
+          bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
+            parse_mode: "HTML",
+          });
+          gale += 1;
+          clearInterval(intervalId2);
+        }
+      }, 9000);
+      clearInterval(intervalId2);
+    }
+  }, 3000);
+
+  let intervalId3 = setInterval(() => {
+    if (casa.length === 11 && gale === 2 && cor !== null) {
+      console.log("processo 3", cor);
+      setTimeout(() => {
+        console.log("COR verificação SINAL palpite", cor);
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalNove);
+          return;
+        }
+
+        if (cor === "Vermelho" || cor === 1) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalNove);
+          return;
+        } else {
+          countLoss += 1;
+          bot.telegram.sendSticker(tokenChat, tokenLoss);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalNove);
+          return;
+        }
+      }, 9000);
+      clearInterval(intervalId3);
+    }
+  }, 3000);
 }
 
 function processar_Seis(cor, dataSeis, roll, casaId) {
-  //     //OIIIIIIIIIITO 6
-  setInterval(() => {
-    if (cor !== corAtual && typeof corAtual !== "undefined") {
-      cor = corAtual;
-    }
+  //SEEEIS 6
+  console.log(cor);
+  console.log(roll);
+  console.log(casaId);
+  let gale = 0;
+
+  idIntervalSeis = setInterval(() => {
     if (roll != rollAtual && typeof rollAtual !== "undefined") {
       roll = rollAtual;
     }
+
     if (casaId != idAtual && typeof idAtual !== "undefined") {
       casaId = idAtual;
     }
-  }, 1000);
 
-  console.log("COR ATUALIZADA TREZE", cor);
-
-  console.log("PALPITE DE SINAL");
-  bot.telegram.sendMessage(
-    tokenChat,
-    `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-      dataSeis
-    )} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-    { parse_mode: "HTML" }
-  );
-
-  setTimeout(() => {
-    if (cor === 0 || cor === "Branco") {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      startRobo();
-      return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+    if (cor != corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+      console.log("cor atualizada", cor);
     }
 
-    if (cor === "Vermelho" || cor === 1) {
-      console.log("O numero foi computado: ", roll);
+    if (typeof idAtual !== "undefined") {
+      if (casa.includes(idAtual)) {
+        console.log(`O elemento ${idAtual} já existe no array.`);
+      } else {
+        casa.push(idAtual);
+        console.log(casa);
+        console.log(`O elemento ${idAtual} foi adicionado ao array.`);
+      }
+    }
+  }, 1500);
 
-      countWin += 1;
-      bot.telegram.sendSticker(tokenChat, tokenWin);
-      startRobo();
-      return;
-    } else if (cor !== "Vermelho" || cor !== 1) {
-      console.log("O numero foi computado: ", roll);
+  console.log("PALPITE DE SINAL");
 
-      bot.telegram.sendMessage(tokenChat, `<b>❇️ 1º GALE</b>`, {
-        parse_mode: "HTML",
-      });
+  let mensagemAnterior = setInterval(() => {
+    if (casa.length === 5 && cor != null && roll != null) {
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+      clearInterval(mensagemAnterior);
+    }  
+  }, 3000);
+
+  let intervalId1 = setInterval(() => {
+    if (casa.length === 6 && cor !== null) {
+      console.log(casa);
+      console.log("processo 1", cor);
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
-          console.log("O numero foi computado: ", roll);
-          countBrancos += 1;
           countWin += 1;
+          countBrancos += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
           startRobo();
-          return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          clearInterval(intervalId1);
+          clearInterval(idIntervalSeis);
+          return;
         }
         if (cor === "Vermelho" || cor === 1) {
-          console.log("O numero foi computado: ", roll);
-
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
           startRobo();
+          clearInterval(intervalId1);
+          clearInterval(idIntervalSeis);
           return;
-        } else if (cor !== "Vermelho" || cor !== 1) {
-          console.log("O numero foi computado: ", roll);
+        } else {
+          bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
+            parse_mode: "HTML",
+          });
+          gale += 1;
+          clearInterval(intervalId1);
+        }
+      }, 9000);
+      clearInterval(intervalId1);
+    }
+  }, 3000);
 
+  let intervalId2 = setInterval(() => {
+    if (casa.length === 7 && gale === 1 && cor !== null) {
+      console.log("processo 2", cor);
+      setTimeout(() => {
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalSeis);
+          return;
+        }
+        if (cor === "Vermelho" || cor === 1) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalSeis);
+          return;
+        } else {
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
             parse_mode: "HTML",
           });
-          setTimeout(() => {
-            if (cor === 0 || cor === "Branco") {
-              console.log("O numero foi computado: ", roll);
-              countBrancos += 1;
-              countWin += 1;
-              startRobo();
-              return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-            }
-            if (cor === "Vermelho" || cor === 1) {
-              console.log("O numero foi computado: ", roll);
-
-              countWin += 1;
-              bot.telegram.sendSticker(tokenChat, tokenWin);
-              startRobo();
-              return;
-            } else {
-              countLoss += 1;
-              bot.telegram.sendSticker(tokenChat, tokenLoss);
-              startRobo();
-              return;
-            }
-          }, 35000);
+          gale += 1;
+          clearInterval(intervalId2);
         }
-      }, 35000);
+      }, 9000);
+      clearInterval(intervalId2);
     }
-  }, 212000);
+  }, 3000);
+
+  let intervalId3 = setInterval(() => {
+    if (casa.length === 8 && gale === 2 && cor !== null) {
+      console.log("processo 3", cor);
+      setTimeout(() => {
+        console.log("COR verificação SINAL palpite", cor);
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalSeis);
+          return;
+        }
+
+        if (cor === "Vermelho" || cor === 1) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalSeis);
+          return;
+        } else {
+          countLoss += 1;
+          bot.telegram.sendSticker(tokenChat, tokenLoss);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalSeis);
+          return;
+        }
+      }, 9000);
+      clearInterval(intervalId3);
+    }
+  }, 3000);
 }
 
 function processar_Oito(cor, dataOito, roll, casaId) {
-  //     //OITOO
-  setInterval(() => {
-    if (cor !== corAtual && typeof corAtual !== "undefined") {
-      cor = corAtual;
-    }
+  //Oitooooo 8
+  console.log(cor);
+  console.log(roll);
+  console.log(casaId);
+  let gale = 0;
+
+  idIntervalOito = setInterval(() => {
     if (roll != rollAtual && typeof rollAtual !== "undefined") {
       roll = rollAtual;
     }
+
     if (casaId != idAtual && typeof idAtual !== "undefined") {
       casaId = idAtual;
     }
-  }, 1000);
 
-  console.log("COR ATUALIZADA TREZE", cor);
-
-  console.log("PALPITE DE SINAL");
-  bot.telegram.sendMessage(
-    tokenChat,
-    `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-      dataOito
-    )} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-    { parse_mode: "HTML" }
-  );
-
-  setTimeout(() => {
-    if (cor === 0 || cor === "Branco") {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      startRobo();
-      return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+    if (cor != corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+      console.log("cor atualizada", cor);
     }
 
-    console.log("COR verificação SINAL palpite", cor);
+    if (typeof idAtual !== "undefined") {
+      if (casa.includes(idAtual)) {
+        console.log(`O elemento ${idAtual} já existe no array.`);
+      } else {
+        casa.push(idAtual);
+        console.log(casa);
+        console.log(`O elemento ${idAtual} foi adicionado ao array.`);
+      }
+    }
+  }, 1500);
 
-    if (cor === "Preto" || cor === 2) {
-      console.log("O numero foi computado: ", roll);
-      countWin += 1;
-      bot.telegram.sendSticker(tokenChat, tokenWin);
-      startRobo();
-      return;
-    } else if (cor !== "Preto" || cor !== 2) {
-      console.log("O numero foi computado: ", roll);
-      bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
-        parse_mode: "HTML",
-      });
+  console.log("PALPITE DE SINAL");
+  let mensagemAnterior = setInterval(() => {
+    if (casa.length === 7 && cor != null && roll != null) {
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+      clearInterval(mensagemAnterior);
+    }  
+  }, 3000);
+
+  let intervalId1 = setInterval(() => {
+    if (casa.length === 8 && cor !== null) {
+      console.log(casa);
+      console.log("processo 1", cor);
       setTimeout(() => {
-        console.log("COR verificação SINAL G1", cor);
-
         if (cor === 0 || cor === "Branco") {
-          console.log("O numero foi computado: ", roll);
-          countBrancos += 1;
           countWin += 1;
+          countBrancos += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
           startRobo();
-          return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          clearInterval(intervalId1);
+          clearInterval(idIntervalOito);
+          return;
         }
-
         if (cor === "Preto" || cor === 2) {
-          console.log("O numero foi computado: ", roll);
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
           startRobo();
+          clearInterval(intervalId1);
+          clearInterval(idIntervalOito);
           return;
-        } else if (cor !== "Preto" || cor !== 2) {
-          console.log("O numero foi computado: ", roll);
+        } else {
+          bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
+            parse_mode: "HTML",
+          });
+          gale += 1;
+          clearInterval(intervalId1);
+        }
+      }, 9000);
+      clearInterval(intervalId1);
+    }
+  }, 3000);
+
+  let intervalId2 = setInterval(() => {
+    if (casa.length === 9 && gale === 1 && cor !== null) {
+      console.log("processo 2", cor);
+      setTimeout(() => {
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalOito);
+          return;
+        }
+        if (cor === "Preto" || cor === 2) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalOito);
+          return;
+        } else {
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
             parse_mode: "HTML",
           });
-          setTimeout(() => {
-            console.log("COR verificação SINAL G2", cor);
-            if (cor === 0 || cor === "Branco") {
-              console.log("O numero foi computado: ", roll);
-              countBrancos += 1;
-              countWin += 1;
-              startRobo();
-              return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-            }
-            if (cor === "Preto" || cor === 2) {
-              console.log("O numero foi computado: ", roll);
-              countWin += 1;
-              bot.telegram.sendSticker(tokenChat, tokenWin);
-              startRobo();
-              return;
-            } else {
-              countLoss += 1;
-              bot.telegram.sendSticker(tokenChat, tokenLoss);
-              startRobo();
-              return;
-            }
-          }, 35000);
+          gale += 1;
+          clearInterval(intervalId2);
         }
-      }, 35000);
+      }, 9000);
+      clearInterval(intervalId2);
     }
-  }, 267000); //262000
+  }, 3000);
+
+  let intervalId3 = setInterval(() => {
+    if (casa.length === 10 && gale === 2 && cor !== null) {
+      console.log("processo 3", cor);
+      setTimeout(() => {
+        console.log("COR verificação SINAL palpite", cor);
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalOito);
+          return;
+        }
+
+        if (cor === "Preto" || cor === 2) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalOito);
+          return;
+        } else {
+          countLoss += 1;
+          bot.telegram.sendSticker(tokenChat, tokenLoss);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalOito);
+          return;
+        }
+      }, 9000);
+      clearInterval(intervalId3);
+    }
+  }, 3000);
 }
 
 function processar_Onze(cor, dataOnze, roll, casaId) {
-  // ONZEEEEEEEEEEE 11
-  setInterval(() => {
-    if (cor !== corAtual && typeof corAtual !== "undefined") {
-      cor = corAtual;
-    }
+  //Onzeeee 11
+  console.log(cor);
+  console.log(roll);
+  console.log(casaId);
+  let gale = 0;
+
+  idIntervalOnze = setInterval(() => {
     if (roll != rollAtual && typeof rollAtual !== "undefined") {
       roll = rollAtual;
     }
+
     if (casaId != idAtual && typeof idAtual !== "undefined") {
       casaId = idAtual;
     }
-  }, 1000);
 
-  console.log("COR ATUALIZADA TREZE", cor);
-
-  console.log("PALPITE DE SINAL");
-  bot.telegram.sendMessage(
-    tokenChat,
-    `<b>Palpite Sinal 📊</b> \n\n⏰HORÁRIO: ${formatDate(
-      dataOnze
-    )} \n\n💎Entrada: ⚫ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
-    { parse_mode: "HTML" }
-  );
-
-  setTimeout(() => {
-    if (cor === 0 || cor === "Branco") {
-      console.log("O numero foi computado: ", roll);
-      countBrancos += 1;
-      countWin += 1;
-      startRobo();
-      return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+    if (cor != corAtual && typeof corAtual !== "undefined") {
+      cor = corAtual;
+      console.log("cor atualizada", cor);
     }
 
-    if (cor === "Preto" || cor === 2) {
-      console.log("O numero foi computado: ", roll);
-      countWin += 1;
-      bot.telegram.sendSticker(tokenChat, tokenWin);
-      startRobo();
-      return;
-    } else if (cor !== "Preto" || cor !== 2) {
-      console.log("O numero foi computado: ", roll);
-      bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
-        parse_mode: "HTML",
-      });
+    if (typeof idAtual !== "undefined") {
+      if (casa.includes(idAtual)) {
+        console.log(`O elemento ${idAtual} já existe no array.`);
+      } else {
+        casa.push(idAtual);
+        console.log(casa);
+        console.log(`O elemento ${idAtual} foi adicionado ao array.`);
+      }
+    }
+  }, 1500);
+
+  console.log("PALPITE DE SINAL");
+  let mensagemAnterior = setInterval(() => {
+    if (casa.length === 10 && cor != null && roll != null) {
+      bot.telegram.sendMessage(
+        tokenChat,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        { parse_mode: "HTML" }
+      );
+      clearInterval(mensagemAnterior);
+    }  
+  }, 3000);
+
+  let intervalId1 = setInterval(() => {
+    if (casa.length === 11 && cor !== null) {
+      console.log(casa);
+      console.log("processo 1", cor);
       setTimeout(() => {
         if (cor === 0 || cor === "Branco") {
-          console.log("O numero foi computado: ", roll);
-          countBrancos += 1;
           countWin += 1;
+          countBrancos += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
           startRobo();
-          return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          clearInterval(intervalId1);
+          clearInterval(idIntervalOnze);
+          return;
         }
         if (cor === "Preto" || cor === 2) {
-          console.log("O numero foi computado: ", roll);
           countWin += 1;
           bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
           startRobo();
+          clearInterval(intervalId1);
+          clearInterval(idIntervalOnze);
           return;
-        } else if (cor !== "Preto" || cor !== 2) {
-          console.log("O numero foi computado: ", roll);
+        } else {
+          bot.telegram.sendMessage(tokenChat, `<b> ❇️ 1º GALE</b>`, {
+            parse_mode: "HTML",
+          });
+          gale += 1;
+          clearInterval(intervalId1);
+        }
+      }, 9000);
+      clearInterval(intervalId1);
+    }
+  }, 3000);
+
+  let intervalId2 = setInterval(() => {
+    if (casa.length === 12 && gale === 1 && cor !== null) {
+      console.log("processo 2", cor);
+      setTimeout(() => {
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalOnze);
+          return;
+        }
+        if (cor === "Preto" || cor === 2) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId2);
+          clearInterval(idIntervalOnze);
+          return;
+        } else {
           bot.telegram.sendMessage(tokenChat, `<b> ❇️ 2º GALE</b>`, {
             parse_mode: "HTML",
           });
-          setTimeout(() => {
-            if (cor === 0 || cor === "Branco") {
-              console.log("O numero foi computado: ", roll);
-              countBrancos += 1;
-              countWin += 1;
-              startRobo();
-              return bot.telegram.sendSticker(tokenChat, tokenWinBranco);
-            }
-            if (cor === "Preto" || cor === 2) {
-              console.log("O numero foi computado: ", roll);
-              countWin += 1;
-              bot.telegram.sendSticker(tokenChat, tokenWin);
-              startRobo();
-              return;
-            } else {
-              countLoss += 1;
-              bot.telegram.sendSticker(tokenChat, tokenLoss);
-              startRobo();
-              return;
-            }
-          }, 35000);
+          gale += 1;
+          clearInterval(intervalId2);
         }
-      }, 35000);
+      }, 9000);
+      clearInterval(intervalId2);
     }
-  }, 314000);
+  }, 3000);
+
+  let intervalId3 = setInterval(() => {
+    if (casa.length === 13 && gale === 2 && cor !== null) {
+      console.log("processo 3", cor);
+      setTimeout(() => {
+        console.log("COR verificação SINAL palpite", cor);
+        if (cor === 0 || cor === "Branco") {
+          console.log("COR verificação SINAL palpite", cor);
+          countBrancos += 1;
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWinBranco);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalOnze);
+          return;
+        }
+
+        if (cor === "Preto" || cor === 2) {
+          console.log("COR verificação SINAL palpite", cor);
+          countWin += 1;
+          bot.telegram.sendSticker(tokenChat, tokenWin);
+          casa.length = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalOnze);
+          return;
+        } else {
+          countLoss += 1;
+          bot.telegram.sendSticker(tokenChat, tokenLoss);
+          casa.length = 0;
+          gale = 0;
+          startRobo();
+          clearInterval(intervalId3);
+          clearInterval(idIntervalOnze);
+          return;
+        }
+      }, 9000);
+      clearInterval(intervalId3);
+    }
+  }, 3000);
 }
