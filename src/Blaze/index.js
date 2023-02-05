@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Telegraf } from "telegraf";
 
-const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
+const bot = new Telegraf("");
 const tokenWin =
   "CAACAgEAAxkBAAIBZmPQgIw04i-VzNmGbon5dR_ffIMnAAKNAgAC2vqYR85jELH6CAEKLQQ";
 const tokenLoss =
