@@ -1,22 +1,24 @@
 import axios from "axios";
 import { Telegraf } from "telegraf";
 
-const bot = new Telegraf("");
+const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
 const tokenWin =
   "CAACAgEAAxkBAAIBZmPQgIw04i-VzNmGbon5dR_ffIMnAAKNAgAC2vqYR85jELH6CAEKLQQ";
 const tokenLoss =
   "CAACAgEAAxkBAAIBaWPQgI-sPTdvdQABoP7i1lxpydwVUgACEQIAAvqqmEfmghiZF6aGxy0E";
 const tokenWinBranco =
   "CAACAgEAAxkBAAIBZ2PQgI7oCLSa-bbkgpbgnz17NVZ-AAKlAgACDr2ZRwJCHf6fmiOqLQQ";
-const tokenChat = -1001677942242;
+const tokenChat = -1001677942242; //chat canal novo (-1001601062564)
 const tokenDezWin =
   "CAACAgEAAxkBAAIBbmPUHl8DMFBVJ2leqbWGbX8V_BLXAALBAQACItOYR1MSdzf5soPrLQQ";
 const tokenTresLoss =
   "CAACAgEAAxkBAAIBb2PUHmJR8cSsn_GVb_fpL7aLIHEzAAKhAQACZeSYR07EHvb3FpgRLQQ";
 const tokenPareDeOperar =
   "CAACAgEAAxkBAAIBkmPZg5xpeUc3544vxYLoJkCV95IhAALFAQACJ9qRR4B_fxjRTzKmLQQ";
+const tokenAnalisandoMercado =
+  "AgACAgEAAx0CZANd4gACGMxj38SsAfP8xR7Kjdw2aZkEmKZqWgACrKoxG9s4AUezsc14t0gnUQEAAwIAA3kAAy4E";
 
-let casa = [];
+  let casa = [];
 let idIntervalDoze;
 let idIntervalTreze;
 let idIntervalDez;
@@ -35,7 +37,12 @@ var countGeral = countWin + countBrancos + countLoss;
 var casaId;
 var corAtual;
 
-setInterval(function () {
+setInterval(() => {
+  // console.log("CONTAGEM WIN: ", countWin)
+  // console.log("CONTAGEM LOSS: ", countLoss)
+  // console.log("CONTAGEM BRANCO: ", countBrancos)
+  // console.log("CONTAGEM GERAL: ", countGeral)
+
   if (countWin === 10 && countLoss === 0) {
     bot.telegram.sendSticker(tokenChat, tokenDezWin);
     setTimeout(() => {
@@ -82,7 +89,7 @@ function atualizarCor() {
 
 setInterval(() => {
   atualizarCor();
-}, 5000);
+}, 3000);
 
 function startRobo() {
   axios
@@ -280,13 +287,17 @@ function processar_Treze(cor, dataDoze, roll, casaId) {
     if (casa.length === 12 && cor != null && roll != null) {
       bot.telegram.sendMessage(
         tokenChat,
-        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${
+          cor === 0 ? "⚪️" : ""
+        } ${
+          cor === 2 ? "⚫️" : ""
+        } ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
         { parse_mode: "HTML" }
       );
       clearInterval(mensagemAnterior);
-    }  
+    }
   }, 3000);
-  
+
   let intervalId1 = setInterval(() => {
     if (casa.length === 13 && cor !== null) {
       console.log(casa);
@@ -438,11 +449,15 @@ function processar_Doze(cor, dataDoze, roll, casaId) {
     if (casa.length === 11 && cor != null && roll != null) {
       bot.telegram.sendMessage(
         tokenChat,
-        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${
+          cor === 0 ? "⚪️" : ""
+        } ${
+          cor === 2 ? "⚫️" : ""
+        } ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
         { parse_mode: "HTML" }
       );
       clearInterval(mensagemAnterior);
-    }  
+    }
   }, 3000);
 
   let intervalId1 = setInterval(() => {
@@ -596,11 +611,15 @@ function processar_Dez(cor, dataDez, roll, casaId) {
     if (casa.length === 9 && cor != null && roll != null) {
       bot.telegram.sendMessage(
         tokenChat,
-        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${
+          cor === 0 ? "⚪️" : ""
+        } ${
+          cor === 2 ? "⚫️" : ""
+        } ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
         { parse_mode: "HTML" }
       );
       clearInterval(mensagemAnterior);
-    }  
+    }
   }, 3000);
 
   let intervalId1 = setInterval(() => {
@@ -754,11 +773,15 @@ function processar_Nove(cor, dataNove, roll, casaId) {
     if (casa.length === 8 && cor != null && roll != null) {
       bot.telegram.sendMessage(
         tokenChat,
-        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${
+          cor === 0 ? "⚪️" : ""
+        } ${
+          cor === 2 ? "⚫️" : ""
+        } ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
         { parse_mode: "HTML" }
       );
       clearInterval(mensagemAnterior);
-    }  
+    }
   }, 3000);
 
   let intervalId1 = setInterval(() => {
@@ -913,11 +936,15 @@ function processar_Seis(cor, dataSeis, roll, casaId) {
     if (casa.length === 5 && cor != null && roll != null) {
       bot.telegram.sendMessage(
         tokenChat,
-        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${
+          cor === 0 ? "⚪️" : ""
+        } ${
+          cor === 2 ? "⚫️" : ""
+        } ${roll} \n\n💎Entrada: 🔴 + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
         { parse_mode: "HTML" }
       );
       clearInterval(mensagemAnterior);
-    }  
+    }
   }, 3000);
 
   let intervalId1 = setInterval(() => {
@@ -1071,11 +1098,15 @@ function processar_Oito(cor, dataOito, roll, casaId) {
     if (casa.length === 7 && cor != null && roll != null) {
       bot.telegram.sendMessage(
         tokenChat,
-        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${
+          cor === 0 ? "⚪️" : ""
+        } ${
+          cor === 2 ? "⚫️" : ""
+        } ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
         { parse_mode: "HTML" }
       );
       clearInterval(mensagemAnterior);
-    }  
+    }
   }, 3000);
 
   let intervalId1 = setInterval(() => {
@@ -1229,11 +1260,15 @@ function processar_Onze(cor, dataOnze, roll, casaId) {
     if (casa.length === 10 && cor != null && roll != null) {
       bot.telegram.sendMessage(
         tokenChat,
-        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após:${cor === 1 ? "🔴" : ""} ${cor === 0 ? "⚪️" : ""} ${cor === 2 ? "⚫️" : ""} ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
+        `<b>Palpite Sinal 📊</b> \n\n⏰Entrar após: ${cor === 1 ? "🔴" : ""} ${
+          cor === 0 ? "⚪️" : ""
+        } ${
+          cor === 2 ? "⚫️" : ""
+        } ${roll} \n\n💎Entrada: ⚫️ + ⚪️ \n\n✅ G1 \n\n✅ G2 (opcional)`,
         { parse_mode: "HTML" }
       );
       clearInterval(mensagemAnterior);
-    }  
+    }
   }, 3000);
 
   let intervalId1 = setInterval(() => {
