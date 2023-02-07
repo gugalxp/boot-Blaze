@@ -1,22 +1,22 @@
 import axios from "axios";
 import { Telegraf } from "telegraf";
 
-const bot = new Telegraf("5919311963:AAGt16CMPOcNjk_I0gcvK9FPFQ4YTaUs_-E");
+const bot = new Telegraf("");
 const tokenWin =
   "CAACAgEAAxkBAAIBZmPQgIw04i-VzNmGbon5dR_ffIMnAAKNAgAC2vqYR85jELH6CAEKLQQ";
 const tokenLoss =
   "CAACAgEAAxkBAAIBaWPQgI-sPTdvdQABoP7i1lxpydwVUgACEQIAAvqqmEfmghiZF6aGxy0E";
 const tokenWinBranco =
   "CAACAgEAAxkBAAIBZ2PQgI7oCLSa-bbkgpbgnz17NVZ-AAKlAgACDr2ZRwJCHf6fmiOqLQQ";
-const tokenChat = -1001601062564; //chat canal novo (-1001677942242)
+const tokenChat = ""
 const tokenDezWin =
   "CAACAgEAAxkBAAIBbmPUHl8DMFBVJ2leqbWGbX8V_BLXAALBAQACItOYR1MSdzf5soPrLQQ";
 const tokenTresLoss =
   "CAACAgEAAxkBAAIBb2PUHmJR8cSsn_GVb_fpL7aLIHEzAAKhAQACZeSYR07EHvb3FpgRLQQ";
 const tokenPareDeOperar =
   "CAACAgEAAxkBAAIBkmPZg5xpeUc3544vxYLoJkCV95IhAALFAQACJ9qRR4B_fxjRTzKmLQQ";
-const tokenAnalisandoMercado =
-  "CAACAgEAAxkBAAIBpGPhmh-z1alOwlBWK5immrNgpL0vAAKcAQACDo6ZR_EMAUGIwBE4LgQ";
+// const tokenAnalisandoMercado =
+//   "CAACAgEAAxkBAAIBpGPhmh-z1alOwlBWK5immrNgpL0vAAKcAQACDo6ZR_EMAUGIwBE4LgQ";
 
 let casa = [];
 let idIntervalDoze;
