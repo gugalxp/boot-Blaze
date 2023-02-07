@@ -2,7 +2,7 @@
 
 Foi utilizado:
 
-- [] ANALISE EM TEMPO REAL
-- [] AXIOS
-- [] NODEJS
-- [] E deploy feito na AWS EC2
+- [x] ANALISE EM TEMPO REAL
+- [x] AXIOS
+- [x] NODEJS
+- [x] E deploy feito na AWS EC2
