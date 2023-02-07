@@ -1,3 +1,8 @@
 # BOOT BLAZER COM ANALISE EM TEMPO REAL
 
-Foi utilizado AXIOS e NODEJS apenas. E deploy feito na AWS EC2
+Foi utilizado:
+
+- [] ANALISE EM TEMPO REAL
+- [] AXIOS
+- [] NODEJS
+- [] E deploy feito na AWS EC2
