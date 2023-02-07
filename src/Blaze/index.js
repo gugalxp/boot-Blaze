@@ -16,9 +16,9 @@ const tokenTresLoss =
 const tokenPareDeOperar =
   "CAACAgEAAxkBAAIBkmPZg5xpeUc3544vxYLoJkCV95IhAALFAQACJ9qRR4B_fxjRTzKmLQQ";
 const tokenAnalisandoMercado =
-  "AgACAgEAAx0CZANd4gACGMxj38SsAfP8xR7Kjdw2aZkEmKZqWgACrKoxG9s4AUezsc14t0gnUQEAAwIAA3kAAy4E";
+  "CAACAgEAAxkBAAIBpGPhmh-z1alOwlBWK5immrNgpL0vAAKcAQACDo6ZR_EMAUGIwBE4LgQ";
 
-  let casa = [];
+let casa = [];
 let idIntervalDoze;
 let idIntervalTreze;
 let idIntervalDez;
@@ -28,44 +28,68 @@ let idIntervalSeis;
 let idIntervalOito;
 let rollAtual;
 let idAtual;
-let countWin;
-let countLoss;
+let countWin = 0;
+let countLoss = 0;
 axios.defaults.timeout = 1000000;
-let countBrancos;
-var countAcertividade = countWin + countBrancos - countLoss;
-var countGeral = countWin + countBrancos + countLoss;
+let countBrancos = 0;
+
 var casaId;
 var corAtual;
 
-setInterval(() => {
-  // console.log("CONTAGEM WIN: ", countWin)
-  // console.log("CONTAGEM LOSS: ", countLoss)
-  // console.log("CONTAGEM BRANCO: ", countBrancos)
+let idIntervalCount = setInterval(() => {
+
+
+  var countGeral = countWin + countBrancos + countLoss;
   // console.log("CONTAGEM GERAL: ", countGeral)
+  var countAcertividade = countGeral - countLoss;
+  // console.log("ACERTIVIDADE: ", countAcertividade)
 
   if (countWin === 10 && countLoss === 0) {
     bot.telegram.sendSticker(tokenChat, tokenDezWin);
     setTimeout(() => {
       bot.telegram.sendSticker(tokenChat, tokenPareDeOperar);
     }, 1000);
-    countWin = 0;
   }
 
   if (countLoss === 3 && countWin === 0) {
     bot.telegram.sendSticker(tokenChat, tokenTresLoss);
-    countLoss = 0;
   }
 
-  if (countGeral === 10) {
-    let porcentagem = (countAcertividade / 10) * 100;
+  if (countGeral % 10 === 0 && countGeral != 0) {
+    let porcentagem = (countAcertividade / countGeral) * 100;
+    console.log("PORCENTAGEM: ", porcentagem)
     bot.telegram.sendMessage(
       tokenChat,
-      `<b>Play Sinais 💎</b> \n\n ✅ ${countWin} WINS  \n\n ❌ ${countLoss} RED \n\n ⚪️ ${countBrancos} BRANCOS \n\n ${porcentagem}% de Assertividade`,
+      `<b>Play Sinais 💎</b> \n\n ✅ ${countWin} WINS  \n\n ❌ ${countLoss} RED \n\n ⚪️ ${countBrancos} BRANCOS \n\n ${porcentagem.toFixed(0)}% de Assertividade`,
       { parse_mode: "HTML" }
     );
-    countGeral = 0;
+
+    clearInterval(idIntervalCount)
   }
+
 }, 1000);
+
+function calcularHora() {
+  console.log("Ação executada!");
+    countGeral = 0;
+    countWin = 0;
+    countLoss = 0;
+}
+
+const interval = 24 * 60 * 60 * 1000; // Intervalo de tempo em milissegundos (24 horas)
+
+// Calcula a quantidade de tempo restante até a meia-noite
+const now = new Date();
+const tonight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+const delay = tonight - now;
+
+// Agenda a primeira execução à meia-noite
+setTimeout(function() {
+  calcularHora();
+  setInterval(calcularHora, interval);
+}, delay);
+
+
 
 function atualizarCor() {
   axios
@@ -283,6 +307,9 @@ function processar_Treze(cor, dataDoze, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
+  
+  bot.telegram.sendSticker(tokenChat, tokenAnalisandoMercado);
+
   let mensagemAnterior = setInterval(() => {
     if (casa.length === 12 && cor != null && roll != null) {
       bot.telegram.sendMessage(
@@ -445,6 +472,8 @@ function processar_Doze(cor, dataDoze, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
+  bot.telegram.sendSticker(tokenChat, tokenAnalisandoMercado);
+
   let mensagemAnterior = setInterval(() => {
     if (casa.length === 11 && cor != null && roll != null) {
       bot.telegram.sendMessage(
@@ -607,6 +636,9 @@ function processar_Dez(cor, dataDez, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
+  bot.telegram.sendSticker(tokenChat, tokenAnalisandoMercado);
+
+
   let mensagemAnterior = setInterval(() => {
     if (casa.length === 9 && cor != null && roll != null) {
       bot.telegram.sendMessage(
@@ -769,6 +801,8 @@ function processar_Nove(cor, dataNove, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
+  bot.telegram.sendSticker(tokenChat, tokenAnalisandoMercado);
+
   let mensagemAnterior = setInterval(() => {
     if (casa.length === 8 && cor != null && roll != null) {
       bot.telegram.sendMessage(
@@ -931,6 +965,7 @@ function processar_Seis(cor, dataSeis, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
+  bot.telegram.sendSticker(tokenChat, tokenAnalisandoMercado);
 
   let mensagemAnterior = setInterval(() => {
     if (casa.length === 5 && cor != null && roll != null) {
@@ -1094,6 +1129,8 @@ function processar_Oito(cor, dataOito, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
+  bot.telegram.sendSticker(tokenChat, tokenAnalisandoMercado);
+
   let mensagemAnterior = setInterval(() => {
     if (casa.length === 7 && cor != null && roll != null) {
       bot.telegram.sendMessage(
@@ -1256,6 +1293,8 @@ function processar_Onze(cor, dataOnze, roll, casaId) {
   }, 1500);
 
   console.log("PALPITE DE SINAL");
+  bot.telegram.sendSticker(tokenChat, tokenAnalisandoMercado);
+
   let mensagemAnterior = setInterval(() => {
     if (casa.length === 10 && cor != null && roll != null) {
       bot.telegram.sendMessage(
